@@ -9,26 +9,36 @@ from pathlib import Path
 
 # download info from scholar
 
-delay_seconds = 0.5
-search_query = scholarly.search_author('Raffaele M Mazziotti')
-print(search_query)
-first_author_result = next(search_query)
+try:
+    # download info from scholar
+    delay_seconds = 0.5
+    search_query = scholarly.search_author('Raffaele M Mazziotti')
+    print("Scholar search query object:", search_query)
+    first_author_result = next(search_query)
 
-# Retrieve all the details for the author
-author = scholarly.fill(first_author_result )
-au_info = dict()
-au_info['name'] = author['name']
-au_info['affiliation'] = author['affiliation']
-au_info['citations'] = author['citedby']
-au_info['citations5'] = author['citedby5y']
-au_info['hindex'] = author['hindex']
-au_info['hindex5'] = author['hindex5y']
-au_info['i10index'] = author['i10index']
-au_info['i10index5'] = author['i10index5y']
-au_info['keywords'] = ';'.join(author['interests'])
-pd.DataFrame(au_info,index=[0]).to_csv('data/scholar_author_info.csv')
-citationy = author['cites_per_year']
-pd.DataFrame(citationy,index=[0]).to_csv('data/scholar_citations_per_year.csv')
+    # Retrieve all the details for the author
+    author = scholarly.fill(first_author_result)
+    au_info = {
+        'name':        author['name'],
+        'affiliation': author['affiliation'],
+        'citations':   author['citedby'],
+        'citations5':  author['citedby5y'],
+        'hindex':      author['hindex'],
+        'hindex5':     author['hindex5y'],
+        'i10index':    author['i10index'],
+        'i10index5':   author['i10index5y'],
+        'keywords':    ';'.join(author['interests']),
+    }
+    pd.DataFrame(au_info, index=[0]) \
+      .to_csv('data/scholar_author_info.csv', index=False)
+
+    citationy = author['cites_per_year']
+    pd.DataFrame(citationy, index=[0]) \
+      .to_csv('data/scholar_citations_per_year.csv', index=False)
+
+    print("Scholar data fetched and saved successfully.")
+except Exception as e:
+    print(f"Error fetching Scholar data: {e}")
 
 # script to create or update the scopus dp
 
