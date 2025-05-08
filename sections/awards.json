@@ -1,0 +1,33 @@
+{
+  "awards": [
+    {
+      "title": "Selection Winner for Fixed-Term Researcher Type A",
+      "institution": "University of Florence – School of Psychology",
+      "year": "2023-2026"
+    },
+    {
+      "title": "Post-Doctoral Fellowship Grant",
+      "issuer": "Fondazione Umberto Veronesi",
+      "year": "2022-2023"
+    },
+    {
+      "title": "Best Poster Award",
+      "event": "Mechanisms, Therapies and Biomarkers in Neurodevelopmental Disorders Workshop",
+      "organizer": "Scuola Normale Superiore di Pisa",
+      "date": "2022-05-21"
+    },
+    {
+      "title": "Subject-Matter Expert Appointment",
+      "academicYear": "2021/2022",
+      "course": "Psychobiology & Elements of Developmental Cognitive Neuroscience",
+      "program": "BSc in Psychological Science and Techniques (L-24)",
+      "institution": "University of Florence – School of Psychology",
+      "holder": "Prof. Michela Del Viva"
+    },
+    {
+      "title": "NVIDIA GPU Grant Program Winner",
+      "year": 2019,
+      "award": "€2500 hardware for AI"
+    }
+  ]
+}

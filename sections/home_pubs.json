@@ -1,0 +1,18 @@
+{
+  "homePubs": [
+    {
+      "year": "2025",
+      "title": "The efficacy of Saffron Repron® in counteracting the progression of retinitis pigmentosa: Neuroprotection and resilience",
+      "authors": "Corsi F., Galante A., Maggi M., Mazziotti R., Bisti S., Piano I., Gargini C.",
+      "journal": "Asia-Pacific Journal of Ophthalmology",
+      "doi": "10.1016/j.apjo.2025.100192"
+    },
+    {
+      "year": "2024",
+      "title": "Predicting Visual Stimuli from Cortical Response Recorded with Wide-Field Imaging in a Mouse",
+      "authors": "de Luca D., Moccia S., Lupori L., Mazziotti R., Pizzorusso T., Micera S.",
+      "journal": "IEEE Sensors Journal",
+      "doi": "10.1109/JSEN.2023.3335613"
+    }
+  ]
+}

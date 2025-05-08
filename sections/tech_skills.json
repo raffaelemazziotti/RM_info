@@ -1,0 +1,22 @@
+{
+  "Language": [
+    "Italian (mother tongue)",
+    "English"
+  ],
+  "Basic Software": [
+    "Operating Systems: Windows, macOS, Linux (and derivatives)",
+    "Text Editing: Word, Pages, LaTeX",
+    "Presentations: PowerPoint, Keynote",
+    "Image Editing: Adobe Photoshop, GIMP, Sketch, Lunacy",
+    "Statistics: Anaconda, Tableau, RapidMiner, Apache Spark, KNIME, SPSS, RStudio, OriginLab, Excel, MATLAB, GraphPad Prism",
+    "Technical Drawing: FreeCAD, SketchUp, Blender, Autodesk Fusion"
+  ],
+  "Scientific & Programming Languages": [
+    "Programming: Python, MATLAB, C#, GLSL, Java, JavaScript, Rust",
+    "Microcontrollers: Arduino, MicroPython",
+    "Data Analysis: Python (Anaconda), MATLAB, R, GraphPad Prism",
+    "Databases: SQL",
+    "Markup: HTML, CSS",
+    "Engines & Toolboxes: Unity, PsychoPy, MATLAB Psychtoolbox, Pavlovia, jsPsych"
+  ]
+}

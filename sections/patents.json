@@ -1,0 +1,22 @@
+{
+  "patents": [
+    {
+      "year": 2023,
+      "refNumber": "102020000030413",
+      "holder": "University of Florence; Scuola Normale Superiore",
+      "inventors": [
+        "Mazziotti R",
+        "Lupori L",
+        "Dunville K",
+        "Pietra G",
+        "Cremisi F",
+        "Pizzorusso T"
+      ],
+      "title": "Light stimulation device for multiwell optogenetic plates.",
+      "classification": "C12M",
+      "issuedBy": "Ministry of Enterprises and Made in Italy",
+      "filingDate": "2020-12-10",
+      "description": "Device for light (optogenetic) stimulation of neurons ex vivo and in vitro. The apparatus is fully programmable, allowing adaptation of stimulation patterns to various experimental needs. It enables conducting up to 24 experimental conditions simultaneously."
+    }
+  ]
+}

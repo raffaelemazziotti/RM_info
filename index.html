@@ -1,0 +1,281 @@
+<!-- ========================= index.html ========================= -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mazziotti M. Raffaele M.</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/academicons/css/academicons.min.css"/>
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+<body>
+
+<!-- ===== TOP BAR TABS ===== -->
+<header class="topbar">
+    <nav class="tabs">
+        <button class="tab-link active" data-tab="home">Home</button>
+        <button class="tab-link" data-tab="stats">Stats</button>
+        <button class="tab-link" data-tab="publications">Publications</button>
+        <button class="tab-link" data-tab="experience">Experience</button>
+        <button class="tab-link" data-tab="education">Education</button>
+        <button class="tab-link" data-tab="resources">Web Resources</button>
+        <button class="tab-link" data-tab="databases">Databases</button>
+        <button class="tab-link" data-tab="links">Links</button>
+        <button class="tab-link active" data-tab="about">About</button>
+        <div class="dropdown">
+            <button class="tab-link dropdown-btn">Other ▾</button>
+            <div class="dropdown-content">
+                <button class="tab-link" data-tab="teaching">Teaching</button>
+                <button class="tab-link" data-tab="theses">Theses</button>
+                <button class="tab-link" data-tab="symposia">Symposia</button>
+                <button class="tab-link" data-tab="awards">Awards & Honors</button>
+                <button class="tab-link" data-tab="posters">Posters</button>
+                <button class="tab-link" data-tab="patents">Patents</button>
+                <button class="tab-link" data-tab="skills">Skills</button>
+                <button class="tab-link" data-tab="grants">Grants</button>
+                <button class="tab-link" data-tab="pdf">Download CV</button>
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- ===== MAIN CONTENT AREA ===== -->
+<main class="content">
+    <h1 class="site-title">
+        <span class="last-name">Mazziotti</span>
+        <span class="first-name">Raffaele M.</span>
+    </h1>
+    <p class="tagline">Researcher, University of Florence, Institute of Neuroscience CNR - Pisa</p>
+
+    <!-- --- HOME --- -->
+    <section id="home" class="tab-section active">
+        <div id="home-about"></div>
+        <h2>News</h2>
+        <div id="home-news"></div>
+        <h2>Recent Publications</h2>
+        <div id="home-pubs"></div>
+    </section>
+
+
+    <!-- --- ABOUT SECTION --- -->
+    <section id="about" class="tab-section">
+        <div class="about-grid">
+            <div id="about-content"></div>
+            <a href="images/profile.jpg" target="_blank" class="about-img-link">
+                <img src="images/profile.jpg" alt="Profile picture" class="about-img" />
+            </a>
+        </div>
+    </section>
+
+    <!-- --- PUBLICATIONS SECTION --- -->
+    <section id="publications" class="tab-section">
+        <div class="pub-controls">
+            <input id="pub-search" placeholder="Search…" />
+            <select id="pub-sort">
+                <option value="year">Year (latest)</option>
+                <option value="cit">Citations (most‑cited)</option>
+            </select>
+        </div>
+        <h2>Publications</h2>
+        <div id="pub-list"></div>
+    </section>
+
+    <!-- --- EXPERIENCE SECTION --- -->
+    <section id="experience" class="tab-section">
+        <h2>Experience</h2>
+        <div id="experience-list"></div>
+    </section>
+
+    <!-- --- EDUCATION SECTION --- -->
+    <section id="education" class="tab-section">
+        <h2>Education</h2>
+        <div id="education-list"></div>
+    </section>
+
+    <section id="stats" class="tab-section">
+        <h2>Author Metrics</h2>
+
+        <div id="stats-summary" class="stats-grid"></div>
+
+        <h2>Citations per Year</h2>
+        <canvas id="stats-citations-chart" height="260"></canvas>
+
+        <h2>Top 10 Collaborators</h2>
+        <div id="collaborators-table-container"></div>
+
+        <h2>Co-author Network</h2>
+        <p class="network-description">
+            This network illustrates the co-authorship relationships among my published articles.
+            Click on any node to view more information, and feel free to pan and zoom for a closer look.
+        </p>
+
+        <div class="network-container">
+            <div
+                    id="network-graph"
+                    style="flex:1; height:460px;
+             background:var(--bg-light);
+             border:1px solid var(--border);
+             border-radius:4px;
+             position:relative;">
+            </div>
+            <div
+                    id="network-info"
+                    style="width:240px;
+             padding:1rem;
+             margin-left:1rem;
+             background:var(--bg-light);
+             border:1px solid var(--border);
+             border-radius:4px;
+             color:var(--text);
+             overflow:auto;">
+                <p>Click a node to see details here.</p>
+            </div>
+        </div>
+
+    </section>
+
+    <section id="links" class="tab-section">
+        <h2>Links</h2>
+        <div class="links-grid">
+
+            <!-- Identifiers -->
+            <div class="links-category">
+                <h3>Identifiers</h3>
+                <div class="link-item">
+                    <a href="https://orcid.org/0000-0001-5344-5079" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=orcid.org&sz=64" alt="" />
+                        ORCID
+                    </a>
+                </div>
+                <div class="link-item">
+                    <a href="https://www.unifi.it/p-doc2-0-0-A-3f2b3c2a352828.html" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=unifi.it&sz=64" alt="" />
+                        UNIFI
+                    </a>
+                </div>
+            </div>
+
+            <!-- Publication Profiles -->
+            <div class="links-category">
+                <h3>Profiles</h3>
+                <div class="link-item">
+                    <a href="https://www.scopus.com/authid/detail.uri?authorId=57110486800" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=scopus.com&sz=64" alt="" />
+                        Scopus
+                    </a>
+                </div>
+                <div class="link-item">
+                    <a href="https://www.researchgate.net/profile/Raffaele-Mazziotti" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=researchgate.net&sz=64" alt="" />
+                        ResearchGate
+                    </a>
+                </div>
+                <div class="link-item">
+                    <a href="https://scholar.google.it/citations?user=DIcTe40AAAAJ&hl=it" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=scholar.google.com&sz=64" alt="" />
+                        Google Scholar
+                    </a>
+                </div>
+                <div class="link-item">
+                    <a href="https://publons.com/researcher/4523546/raffaele-mazziotti/publications/" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=publons.com&sz=64" alt="" />
+                        Publons
+                    </a>
+                </div>
+            </div>
+
+            <!-- Social -->
+            <div class="links-category">
+                <h3>Social</h3>
+                <div class="link-item">
+                    <a href="https://twitter.com/raffamazziotti" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=twitter.com&sz=64" alt="" />
+                        X (Twitter)
+                    </a>
+                </div>
+                <div class="link-item">
+                    <a href="https://github.com/raffaelemazziotti/" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="" />
+                        GitHub
+                    </a>
+                </div>
+                <div class="link-item">
+                    <a href="https://stackoverflow.com/users/9586057/mazziotti-raffaele" target="_blank">
+                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=stackoverflow.com&sz=64" alt="" />
+                        StackOverflow
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section id="theses" class="tab-section">
+        <h2>Theses</h2>
+        <div id="thesis-list" class="thesis-grid"></div>
+    </section>
+
+    <section id="symposia" class="tab-section">
+        <h2>Symposia</h2>
+        <div id="symposia-list"></div>
+    </section>
+
+    <section id="posters" class="tab-section">
+        <h2>Posters</h2>
+        <div id="poster-list"></div>
+    </section>
+
+    <section id="patents" class="tab-section">
+        <h2>Patents</h2>
+        <div id="patent-list"></div>
+    </section>
+
+    <section id="resources" class="tab-section">
+        <h2>Web Resources</h2>
+        <div id="resources-list" class="resource-list"></div>
+    </section>
+
+    <section id="databases" class="tab-section">
+        <h2>Databases</h2>
+        <div id="database-list" class="resource-list"></div>
+    </section>
+
+    <section id="skills" class="tab-section">
+        <h2>Technical Skills</h2>
+        <div id="skills-list"></div>
+    </section>
+
+    <section id="teaching" class="tab-section">
+        <h2>Teaching</h2>
+        <div id="teaching-list"></div>
+    </section>
+
+    <section id="awards" class="tab-section">
+        <h2>Awards & Honors</h2>
+        <div id="awards-list"></div>
+    </section>
+
+    <section id="grants" class="tab-section">
+        <h2>Grants</h2>
+        <div id="grants-list"></div>
+    </section>
+
+</main>
+
+<!-- ===== SCRIPTS ===== -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.css"/>
+<script src="https://cdn.jsdelivr.net/npm/vis-network@9.1.2/dist/vis-network.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script type="module" src="script.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+</body>
+</html>

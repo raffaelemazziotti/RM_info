@@ -1,0 +1,48 @@
+{
+  "Website": [
+    {
+      "year": 2025,
+      "title": "NeuroTOC [Table of Contents]",
+      "website": "https://raffaelemazziotti.github.io/neuroTOC/",
+      "sourceCode": "https://github.com/raffaelemazziotti/neuroTOC",
+      "description": "A curated selection of intriguing new articles from last month's literature.",
+      "src_img": "https://raw.githubusercontent.com/raffaelemazziotti/neuroTOC/4e60b73c09799faaf97bb6276d5bb65f0157a300/logo.svg"
+    }
+  ],
+  "Web App": [
+    {
+      "year": 2023,
+      "title": "PNN Atlas (Atlante delle Reti Perineuronali)",
+      "website": "https://www.pnnatlas.sns.it/",
+      "sourceCode": "https://github.com/ciampluca/counting_perineuronal_nets",
+      "description": "Atlante di quantificazione delle reti perineuronali e cellule positive alla parvalbumina in tutto l’encefalo. Lo strumento è basato su modelli di deep learning allenati a simulare la prestazione di conteggio manuale.",
+      "src_img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhZm8TPCwPkQwwtR55oapyfcPuTyTtuR26Lg&s"
+    },
+    {
+      "year": 2021,
+      "title": "MEYE",
+      "website": "https://www.pupillometry.it",
+      "sourceCode": "https://github.com/fabiocarrara/meye",
+      "description": "Strumento open source, basato su Deep Learning, per eseguire esperimenti di pupillometria (su modelli animali e uomo) utilizzando deep learning e il browser del computer.",
+      "src_img": "https://www.thetransmitter.org/wp-content/uploads/2021/10/pupil_2_4.gif"
+    }
+  ],
+  "Behavioural Tool": [
+    {
+      "year": 2020,
+      "title": "oc_chamber",
+      "sourceCode": "https://github.com/raffaelemazziotti/oc_chamber",
+      "description": "Strumento open source per costruire e gestire una camera di condizionamento operante stampata in 3D.",
+      "src_img": "https://raw.githubusercontent.com/raffaelemazziotti/oc_chamber/refs/heads/master/figures/EXPLODED%20VIEW.jpg"
+    }
+  ],
+  "Monitor Calibration": [
+    {
+    "year": 2025,
+    "title": "spyder_cal",
+    "sourceCode": "https://github.com/raffaelemazziotti/spyder_cal",
+    "description": "Monitor Calibration tool for Python and Spyder X.",
+    "src_img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/SMPTE_test_pattern_for_calibration_of_display_monitor.jpg/1170px-SMPTE_test_pattern_for_calibration_of_display_monitor.jpg"
+    }
+  ]
+}

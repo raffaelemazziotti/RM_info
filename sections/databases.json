@@ -1,0 +1,28 @@
+{
+  "databases": [
+    {
+      "date": "2022-12-20",
+      "title": "A brain-wide, annotated dataset of WFA-positive perineuronal nets and parvalbumin neurons in the adult mouse brain",
+      "type": "Repository di dati di microscopia a fluorescenza su tutto il cervello",
+      "website": "https://zenodo.org/record/7419283",
+      "doi": "10.5281/zenodo.7419283",
+      "description": "Raccolta di immagini di microscopia a fluorescenza su tutto il cervello che sono state analizzate a mano per fornire una base dati per l'addestramento di sistemi di intelligenza artificiale e apprendimento automatico."
+    },
+    {
+      "date": "2021-07-14",
+      "title": "Functional near-infrared spectroscopy of visually evoked measurements and Autism Questionnaire score in adults and children",
+      "type": "Repository di dati neurofisiologici raccolti su soggetti umani tipici (adulti e bambini)",
+      "website": "https://zenodo.org/record/5101912",
+      "doi": "10.5281/zenodo.5101912",
+      "description": "Database open source che raccoglie registrazioni FNIRS eseguite su soggetti umani sani, adulti e bambini, durante stimolazioni visive di natura diversa. Su ogni soggetto è stato quantificato il grado di tratti autistici usando il punteggio ottenuto su “Autism Questionnaire”. Il database è ottimizzato per fini di training/validazione di modelli di intelligenza artificiale."
+    },
+    {
+      "date": "2021-02-01",
+      "title": "Human and Mouse Eyes for Pupil Semantic Segmentation",
+      "type": "Repository di immagini",
+      "website": "https://zenodo.org/record/4488164",
+      "doi": "10.5281/zenodo.4488164",
+      "description": "Database open source che raccoglie circa 11000 immagini di occhi di topo e uomo in diverse condizioni di studio. Il database è ottimizzato per fini di training/validazione di modelli di intelligenza artificiale per segmentazione semantica di pupille."
+    }
+  ]
+}

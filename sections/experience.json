@@ -1,0 +1,108 @@
+[
+  {
+    "position": "Assistant Professor (RTD-A)",
+    "institution": "University of Florence, Department of Neurosciences, Psychology, Drug and Child Health",
+    "period": "01 September 2023 - 01 September 2026",
+    "duration": "3 years",
+    "description": "11/E1 (M-PSI/02) General Psychology, Psychobiology, and Psychometrics"
+  },
+  {
+    "position": "Umberto Veronesi Research Assistant",
+    "institution": "Institute of Neurosciences, CNR, Pisa",
+    "duration": "1 year",
+    "period": "01 April 2022 - 31 March 2023",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Evaluation of the effect of different dietary regimes on central nervous system plasticity",
+    "description": "Evaluated the effects of various types of diets on cortical and subcortical plasticity, using the visual cortex as a model area."
+  },
+  {
+    "position": "Co.Co.Co Contract",
+    "institution": "IRCCS Fondazione Stella Maris, Scientific Institute for Child and Adolescent Neuropsychiatry, Calambrone, Pisa",
+    "duration": "1 year (terminated early)",
+    "period": "01 December 2021 - 01 March 2022",
+    "supervisor": "Dr. Laura Baroncelli",
+    "project": "Identification of neurovascular biomarkers using FNIRS in children with neurodevelopmental syndromes",
+    "description": "Conducted imaging recordings using Functional Near Infrared Spectroscopy (FNIRS) in pediatric and adult patients to identify potential biomarkers in subjects with creatine transporter deficiency syndrome."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "NEUROFARBA Department, University of Florence",
+    "duration": "1 year",
+    "period": "01 December 2020 - 30 November 2021",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Pupillometric and imaging study in preclinical models of CDKL5 syndrome",
+    "description": "Performed imaging and pupillometry recordings in preclinical models of CDKL5 deficiency syndrome, along with behavioral tests to correlate cortical processing with arousal states."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "University of Turin",
+    "duration": "1 year",
+    "period": "01 December 2019 - 30 November 2020",
+    "supervisor": "Prof. Maurizio Giustetto",
+    "project": "A Turin network for understanding and treating rare neurodevelopmental disorders: the CDKL5 syndrome model",
+    "description": "Conducted pupillary activity recordings in animals with ubiquitous or conditional deletion of the CDKL5 gene, identifying crucial biomarkers for therapeutic trials."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "NEUROFARBA Department, University of Florence",
+    "duration": "1 year",
+    "period": "01 December 2018 - 30 November 2019",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Identification of functional biomarkers in neurodevelopmental disorder models",
+    "description": "Conducted behavioral experiments to identify reliable biomarkers and developed an economical method for studying learning and memory processes using 3D printing."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "NEUROFARBA Department, University of Florence",
+    "duration": "1 year",
+    "period": "01 December 2017 - 30 November 2018",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Intrinsic signal imaging analysis of visual responses in CDKL5 syndrome models",
+    "description": "Developed a deep learning-based technique for real-time pupillometry during navigation in virtual reality, identifying biomarkers of arousal abnormalities in CDKL5 deficiency models."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "NEUROFARBA Department, University of Florence",
+    "duration": "1 year",
+    "period": "01 December 2016 - 30 November 2017",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Intrinsic signal imaging analysis of visual responses in CDKL5 syndrome models",
+    "description": "Studied a preclinical model of CDKL5 deficiency, identifying reliable biomarkers based on visual cortex responses using intrinsic signal imaging."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "NEUROFARBA Department, University of Florence",
+    "duration": "1 year",
+    "period": "01 December 2015 - 30 November 2016",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Study of excitatory and inhibitory inputs and synaptic plasticity in Rett syndrome models",
+    "description": "Investigated the role of miR-132/212 in the development of the visual cortex and depth perception using conditional knockout models."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "NEUROFARBA Department, University of Florence",
+    "duration": "1 year",
+    "period": "01 December 2014 - 30 November 2015",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Physiological and behavioral evaluation of factors regulating functional development of the mouse visual cortex",
+    "description": "Conducted behavioral tests, including the visual cliff test, to study depth perception development and stereopsis in preclinical models."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "Institute of Neurosciences, CNR, Pisa",
+    "duration": "1 year",
+    "period": "01 December 2013 - 30 November 2014",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Evaluation of factors regulating the development of receptive fields in the mouse visual cortex",
+    "description": "Developed spike sorting techniques for simultaneous electrophysiological recordings to study binocular plasticity and stereopsis."
+  },
+  {
+    "position": "Research Assistant",
+    "institution": "Institute of Neurosciences, CNR, Pisa",
+    "duration": "6 months",
+    "period": "01 November 2012 - 31 May 2013",
+    "supervisor": "Prof. Tommaso Pizzorusso",
+    "project": "Spike sorting analysis of responses in mouse visual cortex neurons",
+    "description": "Applied spike sorting techniques to analyze neuronal responses in the visual cortex and study functional architecture in mouse models."
+  }
+]

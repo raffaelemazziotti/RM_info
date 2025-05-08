@@ -1,0 +1,52 @@
+{
+  "grants": [
+    {
+      "title": "International Call for Research Projects on Rett’s Syndrome 2021/2022",
+      "date": "2022",
+      "role": "Principal Investigator",
+      "funding": "€ 60 000"
+    },
+    {
+      "title": "Post-Doctoral Fellowships Research Grant",
+      "issuer": "Fondazione Umberto Veronesi",
+      "date": "2022",
+      "role": "Principal Investigator",
+      "funding": "€ 30 000 for one year"
+    },
+    {
+      "title": "NVIDIA GPU Grant Program",
+      "date": "2019",
+      "role": "Principal Investigator",
+      "funding": "€ 2 500 in AI hardware"
+    },
+    {
+      "title": "Million Dollar Bike Ride Grant Program (Orphan Disease Center, University of Pennsylvania, MDBR-19-103-CDKL5)",
+      "subtitle": "Validation of pupil size as a biomarker for CDKL5 disorder: longitudinal assessment and relationship with disease severity",
+      "date": "2018",
+      "role": "Collaborator",
+      "funding": "$ 51 382"
+    },
+    {
+      "title": "Fondazione Cassa di Risparmio di Firenze Grant",
+      "subtitle": "Critical periods and CNS plasticity after perinatal stroke",
+      "date": "2017",
+      "durationMonths": 36,
+      "role": "Collaborator",
+      "funding": "€ 24 000"
+    },
+    {
+      "title": "Research Agreement with LUMOS Pharma",
+      "date": "2017",
+      "durationMonths": 12,
+      "role": "Collaborator",
+      "funding": "€ 262 598"
+    },
+    {
+      "title": "Telethon Foundation: Therapeutic Strategies for CDKL5 Disorder",
+      "date": "2015",
+      "durationMonths": 36,
+      "role": "Collaborator",
+      "funding": "€ 100 000"
+    }
+  ]
+}

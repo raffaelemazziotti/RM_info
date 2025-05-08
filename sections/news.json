@@ -1,0 +1,19 @@
+{
+  "news": [
+    {
+      "date": "2025",
+      "title": "NeuroTOC (Neuroscience Table of Contents)",
+      "content": "A curated selection of intriguing new articles from last month's literature.",
+      "link": "https://raffaelemazziotti.github.io/neuroTOC/",
+      "image": "https://raw.githubusercontent.com/raffaelemazziotti/neuroTOC/4e60b73c09799faaf97bb6276d5bb65f0157a300/logo.svg"
+    },
+
+    {
+      "date": "2025",
+      "title": "Spyder_cal",
+      "content": "A Pyhton toolbox for display calibration.",
+      "link": "https://github.com/raffaelemazziotti/spyder_cal",
+      "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/SMPTE_test_pattern_for_calibration_of_display_monitor.jpg/1170px-SMPTE_test_pattern_for_calibration_of_display_monitor.jpg"
+    }
+  ]
+}

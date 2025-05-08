@@ -1,0 +1,57 @@
+{
+  "teaching": [
+    {
+      "type": "Winner of selection for Fixed-Term Researcher Type A",
+      "duration": "3 years",
+      "school": "University of Florence – School of Psychology",
+      "period": "01 September 2023 – 01 September 2026",
+      "course": "Physiological Psychology & Psychobiology with elements of Developmental Cognitive Neuroscience",
+      "hours": 42
+    },
+    {
+      "type": "Adjunct Professor",
+      "academicYear": "2021/2022",
+      "date": "16/11/2021",
+      "school": "University of Florence – School of Psychology",
+      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology",
+      "teaching": "Psychobiology of Resilience and Vulnerability",
+      "hours": 42
+    },
+    {
+      "type": "Guest Lecturer",
+      "academicYear": "2021/2022",
+      "date": "29/04/2022",
+      "school": "University of Florence – School of Psychology",
+      "course": "Master’s in “Kindness in Pediatric Care”",
+      "teaching": "Psychobiology of Resilience and Vulnerability: Elements of Neuroplasticity",
+      "hours": 4
+    },
+    {
+      "type": "Guest Lecturer",
+      "academicYear": "2021/2022",
+      "date": "29/04/2022",
+      "school": "University of Florence – School of Psychology",
+      "course": "Master’s in “Kindness in Pediatric Care”",
+      "teaching": "Psychobiology of Resilience and Vulnerability: Gene–Environment Interactions",
+      "hours": 4
+    },
+    {
+      "type": "Adjunct Professor",
+      "academicYear": "2022/2023",
+      "date": "16/11/2022",
+      "school": "University of Florence – School of Psychology",
+      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
+      "teaching": "Psychobiology of Resilience and Vulnerability",
+      "hours": 42
+    },
+    {
+      "type": "Adjunct Professor",
+      "academicYear": "2022/2023",
+      "date": "16/11/2022",
+      "school": "University of Florence – School of Psychology",
+      "course": "BSc in Psychological Science and Techniques (L-24)",
+      "teaching": "Psychobiology & Developmental Cognitive Neuroscience",
+      "hours": 28
+    }
+  ]
+}

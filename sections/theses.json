@@ -1,0 +1,126 @@
+{
+  "bachelor": [
+    {
+      "academicYear": "2021/2022",
+      "student": "Penzo Marco",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Il ruolo dei neuroni dopaminergici dell'area tegmentale ventrale nella regolazione del comportamento sociale.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2021/2022",
+      "student": "Angiulli Domenico",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Disturbi del neurosviluppo: individuazione di biomarker neurovascolari tramite l’utilizzo della fNIRS.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2021/2022",
+      "student": "Boveri Martina",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Ruolo dei circuiti inibitori nell’adattamento e nella risposta alla novità.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2021/2022",
+      "student": "Ercolanelli Matilda",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Pupillometria ad infrarossi con meno di 80€: metodo DIY con MEYE e Arduino.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2023/2024",
+      "student": "Pecori Leonardo",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Evoluzione delle tecniche di stimolazione neurale basate sull’Optogenetica. Stato dell’arte e possibili scenari futuri.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2023/2024",
+      "student": "Chimento Chiara",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Il periodo critico per l’apprendimento della ricompensa sociale e la sua riapertura.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2023/2024",
+      "student": "Fioravanti Ester",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Alla ricerca dell’engramma: storia del concetto e analisi delle sue proprietà in relazione alla memoria.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2023/2024",
+      "student": "Arcidiacono Andrea",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Locus Coeruleus: funzione, connessioni e implicazioni nel PTSD.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    }
+  ],
+  "master": [
+    {
+      "academicYear": "2021/2022",
+      "student": "Nardini Novella",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "La pupillometria come finestra sul contagio emotivo nel modello murino.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2021/2022",
+      "student": "Criachi Arianna",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "La sindrome di Angelman: valutazione di biomarcatori fisiologici e fenotipo comportamentale nel modello murino.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2022/2023",
+      "student": "Vecchieschi Giacomo",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Ritmicità ultradiana in un modello murino di disturbo da deficit di CDKL5",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2022/2023",
+      "student": "Masi Valentina",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Analisi funzionale delle aree coinvolte nel contagio emotivo mediante l’utilizzo del modello murino.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2022/2023",
+      "student": "Salvini Olimpia",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Individuazione di biomarker precoci in un modello murino di Sindrome di Angelman.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2023/2024",
+      "student": "Ingenito Letizia",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Deficit del Trasportatore della creatina: ricerca di biomarker fisiologici tramite l’uso della fNIRS.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2024/2025",
+      "student": "Ulivi Tommaso",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Studio delle alterazioni della mielinizzazione in un modello murino di autismo.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    }
+  ]
+}
