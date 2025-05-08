@@ -1,0 +1,6 @@
+scholarly
+requests
+numpy
+pandas
+dotenv
+sqlite3
