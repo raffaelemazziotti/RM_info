@@ -6,7 +6,8 @@
 document.addEventListener('DOMContentLoaded', async () => {
     initTabs();
     initPDFDownloadTab();
-    
+
+    await loadHome();
     await loadAbout();
     await loadEducation();
     await loadExperience();
@@ -22,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadTeaching();
     await loadAwards();
     await loadGrants();
-    await loadHome();
+
 
 });
 
