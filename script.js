@@ -1,6 +1,6 @@
 /* ===== script.js ===== */
 
-// TODO new sectoin on current lab projects
+// TODO new section on current lab projects
 
 
 document.addEventListener('DOMContentLoaded', async () => {
