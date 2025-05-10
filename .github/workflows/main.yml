@@ -30,6 +30,7 @@ jobs:
           SCO_API_KEY:   ${{ secrets.SCO_API_KEY }}
           UNFI_USERNAME: ${{ secrets.UNFI_USERNAME }}
           UNFI_PASSWORD: ${{ secrets.UNFI_PASSWORD }}
+          SERPAPI_KEY:   ${{ secrets.SERPAPI_KEY }}
         run: |
           python python/scoups_update_db.py
 
@@ -39,8 +40,6 @@ jobs:
           git config user.email "${{ secrets.MY_EMAIL }}"
           git add data/ sections/
           git diff --quiet || git commit -m "Automated weekly data refresh"
+
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
-          branch: main
+        run: git push origin main
