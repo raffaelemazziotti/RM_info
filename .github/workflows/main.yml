@@ -37,8 +37,8 @@ jobs:
         run: |
           git config user.name 'raffaelemazziotti'
           git config user.email "${{ secrets.MY_EMAIL }}"
-          git add data/ sections/ scopus.db
-          git diff --quiet || git commit -m 
+          git add data/ sections/
+          git diff --quiet || git commit -m "Automated weekly data refresh"
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
         with:
