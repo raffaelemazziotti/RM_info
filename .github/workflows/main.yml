@@ -3,7 +3,7 @@ name: Weekly Data Update & Deploy
 on:
   schedule:
     - cron: '0 0 * * 1'     # Every Monday at 00:00 UTC (03:00 Europe/Rome)
-  workflow_dispatch:       # Allow manual runs
+  workflow_dispatch:
 
 jobs:
   update-data:
@@ -30,9 +30,15 @@ jobs:
           SCO_API_KEY:   ${{ secrets.SCO_API_KEY }}
           UNFI_USERNAME: ${{ secrets.UNFI_USERNAME }}
           UNFI_PASSWORD: ${{ secrets.UNFI_PASSWORD }}
-          SERPAPI_KEY:   ${{ secrets.SERPAPI_KEY }}
         run: |
           python python/scoups_update_db.py
+
+      - name: Run SerpAPI Scholar Update
+        env:
+          SCHOLAR_USER_ID: ${{ secrets.SCHOLAR_USER_ID }}
+          SERPAPI_KEY:     ${{ secrets.SERPAPI_KEY }}
+        run: |
+          python python/scholar_update.py
 
       - name: Commit changes
         run: |
