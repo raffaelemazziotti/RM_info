@@ -7,10 +7,10 @@ import urllib.parse
 import urllib.request
 import re
 import os
-from dotenv import load_dotenv
 
 # Load environment variables from .env only if not running in GitHub Actions
 if not os.getenv("GITHUB_ACTIONS"):
+    from dotenv import load_dotenv
     load_dotenv()
 
 def article_raw2dict(article_raw):
