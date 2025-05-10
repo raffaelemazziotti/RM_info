@@ -11,10 +11,9 @@ jobs:
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         with:
-          persist-credentials: true
-          fetch-depth: 0            # ensure Git knows about all branches
+          token: ${{ secrets.PERSONAL_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -35,12 +34,15 @@ jobs:
         run: |
           python python/scoups_update_db.py
 
-      - name: Commit any updated data
+      - name: Commit changes
         run: |
-          git config user.name 'raffaelemazziotti'
-          git config user.email "${{ secrets.MY_EMAIL }}"
+          git config --local user.name 'raffaelemazziotti'
+          git config --local user.email "${{ secrets.MY_EMAIL }}"
           git add data/ sections/
-          git diff --quiet || git commit -m "Automated weekly data refresh"
+          git commit -m "Automated weekly data refresh" || echo "No changes to commit"
 
-      - name: Push changes to main
-        run: git push origin HEAD:main
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.PERSONAL_TOKEN }}
+          branch: ${{ github.ref }}
