@@ -722,21 +722,25 @@ a{color:var(--accent);}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {
-    /* Switch to a single‐column grid: image first, then text */
     .about-grid {
-        display: grid;
-        grid-template-columns: 1fr;
-        grid-template-rows: auto 1fr;
-        gap: 1rem;
+        display: flex;
+        flex-direction: column;  /* stack children vertically */
+        gap: 1rem;               /* space between image and text */
     }
     .about-img {
-        width: 100%;        /* span the full width */
-        height: auto;       /* preserve aspect ratio */
-        margin: 0;          /* remove any side margins */
-        /* no need for order now—grid places it in the first row */
+        width: 100%;             /* full width of container */
+        height: auto;            /* keep aspect ratio */
+        margin: 0;               /* reset any margins */
+        order: -1;              /* ensure image is first, just in case */
     }
-    .about-text {         /* if you have a wrapper for the text */
+    /* Optional: if your text container has its own class, you can reset any widths */
+    .about-text {
         width: 100%;
+    }
+
+    /* Make stats single column */
+    .stats-grid {
+        grid-template-columns: 1fr;
     }
 }
 
