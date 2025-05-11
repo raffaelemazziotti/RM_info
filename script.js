@@ -996,8 +996,7 @@ async function loadHome() {
         </p>
       </div>
       <a href="images/profile.jpg" target="_blank">
-        <img src="images/profile.jpg" alt="Profile"
-             style="width:200px; height:200px; object-fit:cover; border-radius:4px;" />
+        <img src="images/profile.jpg" alt="Profile" class="home-about-img"/>
       </a>
     </div>
   `;

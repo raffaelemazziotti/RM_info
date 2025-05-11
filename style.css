@@ -666,13 +666,12 @@ a{color:var(--accent);}
 /* ===== HOME ===== */
 .home-about {
     display: flex;
+    flex-direction: row;  /* stack children vertically */
     gap: 1rem;
-    align-items: flex-start;
-    margin-bottom: 2rem;
 }
 .home-about-img {
-    width: 120px;
-    height: 120px;
+    width: auto;
+    height: 200px;
     object-fit: cover;
     border-radius: 4px;
 }
@@ -722,20 +721,50 @@ a{color:var(--accent);}
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 700px) {
+    .home-about {
+        display: flex;
+        flex-direction: column;  /* stack children vertically */
+        gap: 1rem;
+    }
+    .home-about-img {
+        width: 100%;
+        height: auto;
+        border-radius: 4px;
+        order: -1;
+    }
+
+    .home-about-text {
+        flex: 1;
+        text-align: justify;
+        order: 1;
+    }
+
+
     .about-grid {
         display: flex;
         flex-direction: column;  /* stack children vertically */
         gap: 1rem;               /* space between image and text */
     }
     .about-img {
-        width: 100%;             /* full width of container */
-        height: auto;            /* keep aspect ratio */
-        margin: 0;               /* reset any margins */
-        order: -1;              /* ensure image is first, just in case */
+        width: 100%;
+        height: auto;
+        margin: 0;
+        order:-1;
+        align-self: center;
     }
+
     /* Optional: if your text container has its own class, you can reset any widths */
     .about-text {
         width: 100%;
+    }
+
+    .site-title {
+        white-space: nowrap;       /* prevent wrapping */
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+        /*font-size: 1.8rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;*/
     }
 
     /* Make stats single column */
