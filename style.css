@@ -792,25 +792,28 @@ a{color:var(--accent);}
 
     /* Ensure both the graph and info panels fill the width */
     .network-container {
-        width: 100%;
-        height: 400px
+        gap: 1rem !important;
+        /* allow children to size naturally */
+        align-items: stretch !important;
     }
 
     /* If your graph canvas has a fixed height, you may want to reduce it */
-    #network-visualization, /* or whatever your graph wrapper is */
-    .vis-network {
-        width: 100%;
-        height: auto;
+    .vis-network,
+    #network-visualization {
+        width: 100% !important;
+        /* let it expand to at least this height */
+        min-height: 300px !important;
+        height: auto !important;
     }
 
     #network-info {
-        width: 100% !important; /* full width */
-        margin-left: 0 !important; /* flush with container */
+        width: 100% !important;
+        margin-left: 0 !important;
         margin-top: 1rem !important;
         padding: 0.75rem !important;
-        max-height: none !important; /* disable any cap */
-        min-height: 150px; /* ensure it’s not too short */
-        height: auto !important; /* let content drive the height */
+        max-height: none !important;
+        min-height: 150px !important;
+        height: auto !important;
         overflow-y: auto;
     }
 }
