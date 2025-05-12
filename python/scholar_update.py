@@ -18,12 +18,12 @@ profile = results.get("author", {})
 au_info = {
     'name':        profile['name'],
     'affiliation': profile['affiliations'],
-    'citations':   results['cited_by']['table'][0]['citazioni'].get('all',-1),
-    'citations5':  results['cited_by']['table'][0]['citazioni'].get('dal_2020',-1),
-    'hindex':      results['cited_by']['table'][1]['indice_h'].get('all',-1),
-    'hindex5':     results['cited_by']['table'][1]['indice_h'].get('dal_2020',-1),
+    'citations':   results['cited_by']['table'][0]['citations'].get('all',-1),
+    'citations5':  results['cited_by']['table'][0]['citations'].get('since_2020',-1),
+    'hindex':      results['cited_by']['table'][1]['h_index'].get('all',-1),
+    'hindex5':     results['cited_by']['table'][1]['h_index'].get('since_2020',-1),
     'i10index':    results['cited_by']['table'][2]['i10_index'].get('all',-1),
-    'i10index5':   results['cited_by']['table'][2]['i10_index'].get('dal_2020',-1),
+    'i10index5':   results['cited_by']['table'][2]['i10_index'].get('since_2020',-1),
     'keywords':    ';'.join([inter['title'] for inter in profile['interests'] ]),
 }
 
