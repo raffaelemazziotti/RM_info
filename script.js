@@ -187,6 +187,7 @@ function renderPubList() {
         return str.replace(new RegExp(safe,'gi'),
             m=>`<span class="hl">${m}</span>`);
     };
+    
 
     /* ---------- render ---------- */
     const wrap = document.getElementById('pub-list');
@@ -205,6 +206,7 @@ function renderPubList() {
         wrap.appendChild(div);
     });
 }
+
 
 function stripTags(str) {
     return str.replace(/<[^>]*>/g, '');
@@ -1063,6 +1065,8 @@ async function loadHome() {
                 : n
         ).join(', ');
 
+        
+
         const div = document.createElement('div');
         div.className = 'news-item';
         div.innerHTML = `
@@ -1075,10 +1079,7 @@ async function loadHome() {
           ${names}<br>
           <em>${p.journal}</em>
           ${p.doi
-            ? ` · <a href="https://doi.org/${p.doi}" target="_blank"
-                   style="color:var(--accent);text-decoration:underline">
-                     DOI
-                 </a>`
+            ? ` · <a href="https://doi.org/${p.doi}" class="doi-btn" target="_blank">DOI</a>`
             : ''}
         </p>
       </div>
