@@ -113,7 +113,7 @@ for row in rows:
 
 output = { 'homePubs': data }
 
-out_path = Path('sections\\home_pubs.json')
+out_path = Path('sections/home_pubs.json')
 with out_path.open('w', encoding='utf-8') as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
 
