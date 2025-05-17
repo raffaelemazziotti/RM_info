@@ -5,6 +5,7 @@ import pandas as pd
 import time
 import json
 from pathlib import Path
+from datetime import datetime
 
 # script to create or update the scopus data
 
@@ -99,10 +100,11 @@ JOIN authors AS au
 LEFT JOIN journals AS j
   ON j.id = a.journal_id
 GROUP BY a.id
-ORDER BY year DESC,  -- most recent year first
-         a.citations DESC  -- tie-break by citation count
+ORDER BY year DESC,  
+         a.citations DESC 
 LIMIT 3;
 """
+print('Looking for new publications for the home page')
 rows = db.execute_query(query)
 data = list()
 for row in rows:
@@ -110,12 +112,14 @@ for row in rows:
 
 output = { 'homePubs': data }
 
-
-# write to JSON file
-# TODO change the path to sections
 out_path = Path('sections\\home_pubs.json')
 with out_path.open('w', encoding='utf-8') as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
+
+
+now = datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
+out = Path('data/last_updated.txt')
+out.write_text(now, encoding='utf-8')
 
 
 

@@ -6,8 +6,10 @@
 document.addEventListener('DOMContentLoaded', async () => {
     initTabs();
     initPDFDownloadTab();
+    
 
     await loadHome();
+    await displayLastUpdated('/data/last_updated.txt', 'ci-updated');
     await loadAbout();
     await loadEducation();
     await loadExperience();
@@ -23,8 +25,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadTeaching();
     await loadAwards();
     await loadGrants();
-
-
+    
+    
 });
 
 /* --- tab navigation --- */
@@ -147,7 +149,6 @@ async function loadPublications() {
     renderPubList();
     attachPubExportButtons();
 }
-
 
 /* ---------- helpers ---------- */
 function attachPubControls() {
@@ -1491,6 +1492,33 @@ async function generatePDF() {
 
     // 8) Generate and download
     pdfMake.createPdf(dd).download('CV_Mazziotti.pdf');
+}
+
+async function displayLastUpdated(url, elementId) {
+    const el = document.getElementById(elementId);
+    if (!el) return;
+
+    try {
+        const res = await fetch(url);
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        const ts = (await res.text()).trim();
+        const dt = new Date(ts);
+
+        const dateStr = dt.toLocaleDateString(undefined, {
+            year:  'numeric',
+            month: 'short',
+            day:   'numeric'
+        });
+        const timeStr = dt.toLocaleTimeString(undefined, {
+            hour:   '2-digit',
+            minute: '2-digit'
+        });
+
+        el.textContent = `Site last updated: ${dateStr} at ${timeStr}`;
+    } catch (err) {
+        console.error('Could not load last update time:', err);
+        el.textContent = 'Site last updated: unavailable';
+    }
 }
 
 
