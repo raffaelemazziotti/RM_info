@@ -60,7 +60,8 @@ for i,jid in enumerate(journals):
 
 # Update authors
 print('Update authors...')
-authors = [str(aid) for aid in np.unique([ids['id'] if type(ids)==dict else ids for article in articles for ids in article['authors']])]
+#authors = [str(aid) for aid in np.unique([ids['id'] if type(ids)==dict else ids for article in articles for ids in article['authors']])]
+authors = [str(aid) for aid in np.unique([ids['id'] if isinstance(ids, dict) else ids for article in articles for ids in article['authors'] if (ids and (not isinstance(ids, dict) or ids.get('id') is not None))])]
 
 for author in authors:
     if not (db.record_exists('authors', author)):
