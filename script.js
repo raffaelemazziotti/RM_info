@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
 
     await loadHome();
-    await displayLastUpdated('./data/last_updated.txt', 'ci-updated');
+    await displayLastUpdated();
     await loadAbout();
     await loadEducation();
     await loadExperience();
@@ -1683,10 +1683,12 @@ async function generateDOCX() {
     link.click();
 }
 
-async function displayLastUpdated(url, elementId) {
+async function displayLastUpdated() {
+    const url = './data/last_updated.txt';
+    const elementId = 'ci-updated';
     const el = document.getElementById(elementId);
     if (!el) return;
-
+    console.log(url)
     try {
         const res = await fetch(url);
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
