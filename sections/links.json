@@ -1,0 +1,64 @@
+{
+  "links": [
+    {
+      "category": "Identifiers",
+      "items": [
+        {
+          "name": "ORCID",
+          "url": "https://orcid.org/0000-0001-5344-5079",
+          "icon": "https://www.google.com/s2/favicons?domain=orcid.org&sz=64"
+        },
+        {
+          "name": "UNIFI",
+          "url": "https://www.unifi.it/p-doc2-0-0-A-3f2b3c2a352828.html",
+          "icon": "https://www.google.com/s2/favicons?domain=unifi.it&sz=64"
+        }
+      ]
+    },
+    {
+      "category": "Profiles",
+      "items": [
+        {
+          "name": "Scopus",
+          "url": "https://www.scopus.com/authid/detail.uri?authorId=57110486800",
+          "icon": "https://www.google.com/s2/favicons?domain=scopus.com&sz=64"
+        },
+        {
+          "name": "ResearchGate",
+          "url": "https://www.researchgate.net/profile/Raffaele-Mazziotti",
+          "icon": "https://www.google.com/s2/favicons?domain=researchgate.net&sz=64"
+        },
+        {
+          "name": "Google Scholar",
+          "url": "https://scholar.google.it/citations?user=DIcTe40AAAAJ&hl=it",
+          "icon": "https://www.google.com/s2/favicons?domain=scholar.google.com&sz=64"
+        },
+        {
+          "name": "Publons",
+          "url": "https://publons.com/researcher/4523546/raffaele-mazziotti/publications/",
+          "icon": "https://www.google.com/s2/favicons?domain=publons.com&sz=64"
+        }
+      ]
+    },
+    {
+      "category": "Social",
+      "items": [
+        {
+          "name": "X (Twitter)",
+          "url": "https://twitter.com/raffamazziotti",
+          "icon": "https://www.google.com/s2/favicons?domain=twitter.com&sz=64"
+        },
+        {
+          "name": "GitHub",
+          "url": "https://github.com/raffaelemazziotti/",
+          "icon": "https://www.google.com/s2/favicons?domain=github.com&sz=64"
+        },
+        {
+          "name": "StackOverflow",
+          "url": "https://stackoverflow.com/users/9586057/mazziotti-raffaele",
+          "icon": "https://www.google.com/s2/favicons?domain=stackoverflow.com&sz=64"
+        }
+      ]
+    }
+  ]
+}

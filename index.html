@@ -36,7 +36,13 @@
                 <button class="tab-link" data-tab="patents">Patents</button>
                 <button class="tab-link" data-tab="skills">Skills</button>
                 <button class="tab-link" data-tab="grants">Grants</button>
-                <button class="tab-link" data-tab="pdf">Download CV</button>
+                <div class="submenu">
+                    <button class="tab-link submenu-btn">Download CV ▸</button>
+                    <div class="submenu-content">
+                        <button class="tab-link" data-tab="pdf">PDF</button>
+                        <button class="tab-link" data-tab="docx">DOCX</button>
+                    </div>
+                </div>
             </div>
         </div>
     </nav>
@@ -58,7 +64,6 @@
         <h2>Recent Publications</h2>
         <div id="home-pubs"></div>
     </section>
-
 
     <!-- --- ABOUT SECTION --- -->
     <section id="about" class="tab-section">
@@ -131,78 +136,7 @@
 
     <section id="links" class="tab-section">
         <h2>Links</h2>
-        <div class="links-grid">
-
-            <!-- Identifiers -->
-            <div class="links-category">
-                <h3>Identifiers</h3>
-                <div class="link-item">
-                    <a href="https://orcid.org/0000-0001-5344-5079" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=orcid.org&sz=64" alt="" />
-                        ORCID
-                    </a>
-                </div>
-                <div class="link-item">
-                    <a href="https://www.unifi.it/p-doc2-0-0-A-3f2b3c2a352828.html" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=unifi.it&sz=64" alt="" />
-                        UNIFI
-                    </a>
-                </div>
-            </div>
-
-            <!-- Publication Profiles -->
-            <div class="links-category">
-                <h3>Profiles</h3>
-                <div class="link-item">
-                    <a href="https://www.scopus.com/authid/detail.uri?authorId=57110486800" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=scopus.com&sz=64" alt="" />
-                        Scopus
-                    </a>
-                </div>
-                <div class="link-item">
-                    <a href="https://www.researchgate.net/profile/Raffaele-Mazziotti" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=researchgate.net&sz=64" alt="" />
-                        ResearchGate
-                    </a>
-                </div>
-                <div class="link-item">
-                    <a href="https://scholar.google.it/citations?user=DIcTe40AAAAJ&hl=it" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=scholar.google.com&sz=64" alt="" />
-                        Google Scholar
-                    </a>
-                </div>
-                <div class="link-item">
-                    <a href="https://publons.com/researcher/4523546/raffaele-mazziotti/publications/" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=publons.com&sz=64" alt="" />
-                        Publons
-                    </a>
-                </div>
-            </div>
-
-            <!-- Social -->
-            <div class="links-category">
-                <h3>Social</h3>
-                <div class="link-item">
-                    <a href="https://twitter.com/raffamazziotti" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=twitter.com&sz=64" alt="" />
-                        X (Twitter)
-                    </a>
-                </div>
-                <div class="link-item">
-                    <a href="https://github.com/raffaelemazziotti/" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=github.com&sz=64" alt="" />
-                        GitHub
-                    </a>
-                </div>
-                <div class="link-item">
-                    <a href="https://stackoverflow.com/users/9586057/mazziotti-raffaele" target="_blank">
-                        <img class="link-icon" src="https://www.google.com/s2/favicons?domain=stackoverflow.com&sz=64" alt="" />
-                        StackOverflow
-                    </a>
-                </div>
-            </div>
-
-        </div>
+        <div class="links-grid"><!-- dynamically injected --></div>
     </section>
 
     <section id="theses" class="tab-section">
@@ -265,10 +199,14 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/sql-wasm.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/docx@9.1.0/build/index.umd.js"></script>
+
 <script type="module" src="script.js"></script>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
 
 </body>
 <footer class="site-footer">
