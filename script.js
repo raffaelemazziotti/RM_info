@@ -1186,7 +1186,7 @@ function underlineMe(authorsStr) {
 
 async function generatePDF() {
     const accent = '#6e6e6e';
-    const siteURL = window.location.origin;
+    const siteURL = 'https://raffaelemazziotti.github.io/RM_info/';
 
     // 0) Ensure publications are loaded
     await loadPublications();
@@ -1421,14 +1421,16 @@ async function generateDOCX() {
         Paragraph, TextRun,
         HeadingLevel, ImageRun
     } = window.docx;
-    const siteURL = window.location.origin;
+
+    // Use the correct online CV URL
+    const siteURL = 'https://raffaelemazziotti.github.io/RM_info/';
 
     // 1) Optionally load publications
     if (typeof loadPublications === 'function') {
         await loadPublications();
     }
 
-    // 2) Fetch JSON helper
+    // 2) JSON fetch helper
     const fetchJSON = async path => {
         const res = await fetch(path);
         if (!res.ok) throw new Error(`Failed to load ${path}`);
@@ -1494,7 +1496,7 @@ async function generateDOCX() {
     // 6) Build document content
     const content = [];
 
-    // Header: picture + name
+    // Header: image + name
     content.push(new Paragraph({
         children: [
             new ImageRun({ data: imgBuffer, transformation: { width: 80, height: 80 } }),
@@ -1616,7 +1618,7 @@ async function generateDOCX() {
 
     // Grants
     content.push(h1('Grants'));
-    grantsData.grants.forEach(g => {
+    grantsData.grants.forEach(g =>
         content.push(new Paragraph({
             children: [
                 new TextRun({ text: (g.date + (g.durationMonths ? ` (${g.durationMonths} mo)` : '')) + ': ', bold: true }),
@@ -1626,8 +1628,8 @@ async function generateDOCX() {
                 new TextRun({ text: `; Funding: ${g.funding}` })
             ],
             spacing: { after: 100 }
-        }));
-    });
+        }))
+    );
 
     // Technical Skills
     content.push(h1('Technical Skills'));
