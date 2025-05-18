@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     
 
     await loadHome();
-    await displayLastUpdated('/data/last_updated.txt', 'ci-updated');
+    await displayLastUpdated('./data/last_updated.txt', 'ci-updated');
     await loadAbout();
     await loadEducation();
     await loadExperience();
