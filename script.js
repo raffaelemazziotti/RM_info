@@ -1684,7 +1684,7 @@ async function generateDOCX() {
 }
 
 async function displayLastUpdated() {
-    const url = './data/last_updated.txt';
+    const url = 'data/last_updated.txt';
     const elementId = 'ci-updated';
     const el = document.getElementById(elementId);
     if (!el) return;
