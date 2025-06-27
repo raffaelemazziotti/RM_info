@@ -1,4 +1,70 @@
 {
+  "master": [
+    {
+      "academicYear": "2021/2022",
+      "student": "Nardini Novella",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "La pupillometria come finestra sul contagio emotivo nel modello murino.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2021/2022",
+      "student": "Criachi Arianna",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "La sindrome di Angelman: valutazione di biomarcatori fisiologici e fenotipo comportamentale nel modello murino.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2022/2023",
+      "student": "Vecchieschi Giacomo",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Ritmicità ultradiana in un modello murino di disturbo da deficit di CDKL5",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2022/2023",
+      "student": "Masi Valentina",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Analisi funzionale delle aree coinvolte nel contagio emotivo mediante l’utilizzo del modello murino.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2022/2023",
+      "student": "Salvini Olimpia",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Individuazione di biomarker precoci in un modello murino di Sindrome di Angelman.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2023/2024",
+      "student": "Ingenito Letizia",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Deficit del Trasportatore della creatina: ricerca di biomarker fisiologici tramite l’uso della fNIRS.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2024/2025",
+      "student": "Ulivi Tommaso",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Studio delle alterazioni della mielinizzazione in un modello murino di autismo.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    },
+    {
+      "academicYear": "2024/2025",
+      "student": "Mugnai Lucia",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Contagio emotivo: analisi pupillometrica e di attivazione neurale",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
+    }
+  ],
   "bachelor": [
     {
       "academicYear": "2021/2022",
@@ -63,64 +129,22 @@
       "thesisTitle": "Locus Coeruleus: funzione, connessioni e implicazioni nel PTSD.",
       "course": "Laurea in Scienze e Tecniche Psicologiche",
       "class": "L-24"
-    }
-  ],
-  "master": [
-    {
-      "academicYear": "2021/2022",
-      "student": "Nardini Novella",
-      "thesisType": "Tesi Sperimentale",
-      "thesisTitle": "La pupillometria come finestra sul contagio emotivo nel modello murino.",
-      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
-      "class": "LM-51"
-    },
-    {
-      "academicYear": "2021/2022",
-      "student": "Criachi Arianna",
-      "thesisType": "Tesi Sperimentale",
-      "thesisTitle": "La sindrome di Angelman: valutazione di biomarcatori fisiologici e fenotipo comportamentale nel modello murino.",
-      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
-      "class": "LM-51"
-    },
-    {
-      "academicYear": "2022/2023",
-      "student": "Vecchieschi Giacomo",
-      "thesisType": "Tesi Sperimentale",
-      "thesisTitle": "Ritmicità ultradiana in un modello murino di disturbo da deficit di CDKL5",
-      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
-      "class": "LM-51"
-    },
-    {
-      "academicYear": "2022/2023",
-      "student": "Masi Valentina",
-      "thesisType": "Tesi Sperimentale",
-      "thesisTitle": "Analisi funzionale delle aree coinvolte nel contagio emotivo mediante l’utilizzo del modello murino.",
-      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
-      "class": "LM-51"
-    },
-    {
-      "academicYear": "2022/2023",
-      "student": "Salvini Olimpia",
-      "thesisType": "Tesi Sperimentale",
-      "thesisTitle": "Individuazione di biomarker precoci in un modello murino di Sindrome di Angelman.",
-      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
-      "class": "LM-51"
     },
     {
       "academicYear": "2023/2024",
-      "student": "Ingenito Letizia",
-      "thesisType": "Tesi Sperimentale",
-      "thesisTitle": "Deficit del Trasportatore della creatina: ricerca di biomarker fisiologici tramite l’uso della fNIRS.",
-      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
-      "class": "LM-51"
+      "student": "Fiaschi Camilla",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Memorie Invisibili e l’Eredità Transgenerazionale dello Stress Traumatico",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
     },
     {
-      "academicYear": "2024/2025",
-      "student": "Ulivi Tommaso",
-      "thesisType": "Tesi Sperimentale",
-      "thesisTitle": "Studio delle alterazioni della mielinizzazione in un modello murino di autismo.",
-      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
-      "class": "LM-51"
+      "academicYear": "2023/2024",
+      "student": "Gervastri Giulia",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Circuiti cerebrali coinvolti nel novelty seeking behavior.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
     }
   ]
 }

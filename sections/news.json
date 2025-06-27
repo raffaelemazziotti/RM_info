@@ -14,6 +14,13 @@
       "content": "A Pyhton toolbox for display calibration.",
       "link": "https://github.com/raffaelemazziotti/spyder_cal",
       "image": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/SMPTE_test_pattern_for_calibration_of_display_monitor.jpg/1170px-SMPTE_test_pattern_for_calibration_of_display_monitor.jpg"
+    },
+    {
+      "date": "2024",
+      "title": "Pupillometry and Whole-Brain c-Fos Mapping Uncover Multimodal Mirror Mechanisms in Emotional Contagion Networks of Mice",
+      "content": "[Preprint] Emotional contagion (ECo) represents a fundamental form of empathy. In this study, we used pupillometry to quantify ECo by assessing pupil responses of a mouse watching another mouse receive a tail shock.",
+      "link": "https://www.biorxiv.org/content/10.1101/2024.11.20.624327v1",
+      "image": "https://www.biorxiv.org/sites/default/files/biorxiv_logo_homepage.png"
     }
   ]
 }
