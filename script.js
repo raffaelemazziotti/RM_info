@@ -1205,6 +1205,12 @@ async function generatePDF() {
     const grantsData   = await fetch('sections/grants.json').then(r => r.json());
     const linksJson    = await fetch('sections/links.json').then(r => r.json());
 
+    // load stats
+    const scopus = await fetch('data/scopus_author_info.json').then(r => r.json());
+    const scholarCSV = await fetch('data/scholar_author_info.csv').then(r => r.text());
+    const [h, row] = scholarCSV.trim().split('\n').map(l => l.split(','));
+    const scholar = Object.fromEntries(h.map((k,i) => [k.trim().toLowerCase(), row[i].trim()]));
+
     // 2) Parse About HTML into an array of inline text/link objects
     const aboutHtml = aboutRaw.about.content_html;
     const aboutInline = [];
@@ -1396,6 +1402,37 @@ async function generatePDF() {
                 { text:cat, bold:true, margin:[0,6,0,4] },
                 ...items.map(i=>({ text:`• ${i}`, margin:[10,0,0,4] }))
             ]),
+            createSectionHeader('Author Metrics',accent),
+            { // stats table
+              table: {
+                widths: ['*', '*', '*'],
+                body: [
+                  [
+                    { text: 'Metric', bold: true, fillColor: '#eeeeee' },
+                    { text: 'Google Scholar', bold: true, fillColor: '#eeeeee' },
+                    { text: 'Scopus', bold: true, fillColor: '#eeeeee' }
+                  ],
+                  [
+                    'Citations',
+                    scholar['citations'] || '–',
+                    scopus.citation_count?.toString() || '–'
+                  ],
+                  [
+                    'h-index',
+                    scholar['hindex'] || '–',
+                    scopus.h_index?.toString() || '–'
+                  ]
+                ]
+              }, // stats table
+              layout: {
+                fillColor: (i) => i === 0 ? '#eeeeee' : null,
+                hLineWidth: () => 0.5,
+                vLineWidth: () => 0.5,
+                hLineColor: () => accent,
+                vLineColor: () => accent
+              },
+              margin: [0, 0, 0, 12]
+            },
             createSectionHeader('Publications',accent),
             ...pubCards
         ],
