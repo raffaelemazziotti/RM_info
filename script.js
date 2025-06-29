@@ -353,6 +353,7 @@ async function loadExperience() {
 }
 
 /* --- Stats ---*/
+// TODO remove this function
 export function renderCoauthorNetwork(data) {
   const chartDom = document.getElementById('network-graph');
   const myChart = echarts.init(chartDom);
@@ -425,6 +426,7 @@ async function loadStats() {
 
     /* 5. Tiles */
     const tiles = [
+        { label:'Articles<br>Scopus', value:scopus.document_count||'-' },
         { label:'Citations<br>Scholar', value:scholar['citations']||'-' },
         { label:'h-index<br>Scholar',   value:scholar['hindex']  ||'-' },
         { label:'Citations<br>Scopus',  value:scopus.citation_count },
@@ -1178,7 +1180,6 @@ async function loadHome() {
 }
 
 // Save to PDF
-
 function initPDFDownloadTab() {
     const btn = document.querySelector('[data-tab="pdf"]');
     if (!btn) return;
@@ -1447,12 +1448,17 @@ async function generatePDF() {
             createSectionHeader('Author Metrics',accent),
             { // stats table
               table: {
-                widths: ['*', '*', '*'],
+                widths: ['*', '*', '*', '*'],
                 body: [
                   [
                     { text: 'Metric', bold: true, fillColor: '#eeeeee' },
                     { text: 'Google Scholar', bold: true, fillColor: '#eeeeee' },
                     { text: 'Scopus', bold: true, fillColor: '#eeeeee' }
+                  ],
+                  [
+                    '# Articles',
+                    '–',
+                    scopus.document_count?.toString() || '–'
                   ],
                   [
                     'Citations',
