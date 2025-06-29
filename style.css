@@ -327,6 +327,12 @@ a{color:var(--accent);}
     white-space: nowrap;
 }
 
+#network-graph {
+  width: 100%;
+  min-height: 600px;
+  height: auto;
+}
+
 /* vis-network labels styling */
 .vis-network .vis-label {
     font-family: var(--font-base);

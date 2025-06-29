@@ -352,6 +352,46 @@ async function loadExperience() {
     });
 }
 
+/* --- Stats ---*/
+export function renderCoauthorNetwork(data) {
+  const chartDom = document.getElementById('network-graph');
+  const myChart = echarts.init(chartDom);
+
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      formatter: function (params) {
+        return params.data.tooltip?.formatter || params.data.name;
+      }
+    },
+    series: [{
+      type: 'graph',
+      layout: 'force',
+      roam: true,
+      label: {
+        show: true,
+        position: 'right'
+      },
+      force: {
+        repulsion: 100,
+        edgeLength: 60
+      },
+      data: data.nodes,
+      links: data.links,
+      emphasis: {
+        focus: 'adjacency',
+        lineStyle: { width: 2 }
+      },
+      lineStyle: {
+        color: 'source',
+        curveness: 0.1
+      }
+    }]
+  };
+
+  myChart.setOption(option);
+}
+
 async function loadStats() {
     /* 1. Load you (Scopus) and Scholar info */
     const scopus     = await fetch('data/scopus_author_info.json').then(r => r.json());
@@ -485,125 +525,127 @@ async function loadStats() {
     document.getElementById('stats').appendChild(descEl);*/
 
     /* 9. Build network */
-    const affRes = db.exec('SELECT id,name FROM affiliations')[0].values;
-    const affMap = Object.fromEntries(affRes);
+  const affRes = db.exec('SELECT id,name FROM affiliations')[0].values;
+  const affMap = Object.fromEntries(affRes);
 
-    const authRes = db.exec(`
+  const authRes = db.exec(`
     SELECT id,auth,name,surname,affid,
            citation_count,h_index,area,
            publication_start_year,publication_end_year
     FROM authors
   `)[0].values;
 
-    const authors = authRes.map(([id,auth,name,surname,affid,cites,hIndex,area,startY,endY])=>({
-        id, auth, name, surname,
-        affiliation: affMap[affid]||'',
-        citations:+cites||0, hIndex:+hIndex||0,
-        area:area||"",
-        publicationRange: startY&&endY?`${startY} – ${endY}`:""
-    }));
+  const authors = authRes.map(([id,auth,name,surname,affid,cites,hIndex,area,startY,endY]) => ({
+    id, auth, name, surname,
+    affiliation: affMap[affid] || 'Unknown Affiliation',
+    citations: +cites || 0,
+    hIndex: +hIndex || 0,
+    area: area || '',
+    publicationRange: startY && endY ? `${startY} – ${endY}` : ''
+  }));
 
-    // compute co-sets & weights
-    const weight={}, coSet={};
-    db.exec('SELECT authors FROM articles')[0].values.forEach(([as])=>{
-        const ids=as.split('|').filter(Boolean);
-        ids.forEach(id=>coSet[id]=coSet[id]||new Set());
-        for(let i=0;i<ids.length;i++){
-            for(let j=i+1;j<ids.length;j++){
-                const [a,b]=[ids[i],ids[j]].sort();
-                coSet[a].add(b); coSet[b].add(a);
-                const key=`${a}-${b}`;
-                weight[key]=(weight[key]||0)+1;
-            }
+  const weight = {}, seen = new Set();
+  const links = [], nodes = [];
+  const coSet = {};
+
+  db.exec('SELECT authors FROM articles')[0].values.forEach(([as]) => {
+    const ids = as.split('|').filter(Boolean);
+    ids.forEach(id => coSet[id] = coSet[id] || new Set());
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const [a, b] = [ids[i], ids[j]].sort();
+        const key = `${a}-${b}`;
+        weight[key] = (weight[key] || 0) + 1;
+        coSet[a].add(b); coSet[b].add(a);
+      }
+    }
+  });
+
+  const maxH = Math.max(...authors.map(a => a.hIndex), 1);
+  const meLower = document.querySelector('.last-name').textContent.trim().toLowerCase();
+
+  authors.forEach(a => {
+    const mine = a.surname.toLowerCase() === meLower;
+    nodes.push({
+      id: a.id,
+      name: a.auth,
+      tooltip: {
+        formatter:
+          `<b>${a.name} ${a.surname}</b><br>` +
+          `<i>${a.affiliation}</i><br>` +
+          `Citations: ${a.citations}<br>` +
+          `h-index: ${a.hIndex}<br>` +
+          `Years active: ${a.publicationRange}`
+      },
+      label: {
+        show: mine, // always show only for user node
+        position: 'right'
+      },
+      emphasis: {
+        label: {
+          show: true
+        },
+        itemStyle: {
+          color: '#3a7fb6',
+          borderColor: '#ffffff',
+          borderWidth: 2
         }
+      },
+      symbolSize: 10 + (a.hIndex / maxH) * 30,
+      itemStyle: {
+        color: mine ? '#81a2be' : '#fff',
+        borderColor: '#81a2be',
+        borderWidth: 1
+      }
     });
+  });
 
-    // nodes sized by hIndex
-    const maxH = Math.max(...authors.map(a=>a.hIndex),1);
-    const meLower = document.querySelector('.last-name').textContent.trim().toLowerCase();
-    const nodes = authors.map(a=>{
-        const mine = a.surname.toLowerCase()===meLower;
-        const size = 50 + (a.hIndex/maxH)*150;
-        return {
-            id:a.id, shape:'dot', size,
-            color: mine?
-                {background:'#81a2be',border:'#8102be'}:
-                {background:'#fff',border:'#81a2be'},
-            font:{size:0},
-            auth:a.auth,name:a.name,surname:a.surname,
-            affiliation:a.affiliation,citations:a.citations,
-            hIndex:a.hIndex,coauthors:coSet[a.id].size,
-            publicationRange:a.publicationRange,area:a.area
-        };
-    });
-    const allNodeIds = nodes.map(n => n.id);
-    
-    const edges = Object.entries(weight).map(([k,w])=>{
-        const [from,to]=k.split('-');
-        return {from,to,value:w,width:Math.min(w+1,5),color:{color:'#81a2be'}};
-    });
+  Object.entries(weight).forEach(([k, v]) => {
+    const [from, to] = k.split('-');
+    links.push({ source: from, target: to, value: v });
+  });
 
-    // 10. Render network
-    const container = document.getElementById('network-graph');
-    const network = new vis.Network(container,
-        {nodes:new vis.DataSet(nodes), edges:new vis.DataSet(edges)},
-        {
-            layout:{improvedLayout:false},
-            physics:{solver:'forceAtlas2Based',stabilization:{iterations:200}},
-            interaction:{hover:true,tooltipDelay:100,dragView:true,zoomView:true},
-            nodes:{borderWidth:1,scaling:{min:15,max:50}},
-            edges:{smooth:true}
+  const chartDom = document.getElementById('network-graph');
+  const myChart = echarts.init(chartDom);
+
+  const option = {
+    tooltip: {
+      trigger: 'item',
+      confine: true,
+      formatter: function (params) {
+        return params.data.tooltip?.formatter || params.data.name;
+      }
+    },
+    series: [{
+      type: 'graph',
+      layout: 'force',
+      roam: true,
+      focusNodeAdjacency: true,
+      label: {
+        position: 'right'
+      },
+      force: {
+        repulsion: 100,
+        edgeLength: 60
+      },
+      data: nodes,
+      links: links,
+      lineStyle: {
+        color: '#999',
+        width: 1,
+        opacity: 0.5
+      },
+      emphasis: {
+        focus: 'adjacency',
+        lineStyle: {
+          color: '#3a7fb6',
+          width: 2
         }
-    );
+      }
+    }]
+  };
 
-    network.once('stabilizationIterationsDone', () => {
-        network.stopSimulation();
-        network.setOptions({ physics: false });
-
-        // Force‐fit *all* nodes into view, with a bit of padding
-        network.fit({
-            nodes:       allNodeIds,
-            animation:   { duration: 300, easingFunction: 'easeInOutQuad' },
-            offset:      { x: 20, y: 20 }  // adds a 20px padding around the extremes
-        });
-    });
-
-    // 11. Click handler
-    network.on('click',params=>{
-        const info = document.getElementById('network-info');
-        if(!params.nodes.length){
-            info.innerHTML='<p>Click a node to see details here.</p>';
-            return;
-        }
-        const n=network.body.data.nodes.get(params.nodes[0]);
-        const short= n.area.length>50? n.area.slice(0,50)+'…':n.area;
-        const areaHTML = n.area.length>50
-            ? `<p><strong>Area:</strong> <span id="area-short">${short}</span>
-           <a href="#" id="area-toggle">see more</a></p>
-         <p id="area-full" style="display:none;"><strong>Area:</strong> ${n.area}</p>`
-            : `<p><strong>Area:</strong> ${n.area}</p>`;
-
-        info.innerHTML=`
-      <h3>${n.auth}</h3>
-      <p><strong>Name:</strong> ${n.name}</p>
-      <p><strong>Surname:</strong> ${n.surname}</p>
-      <p><strong>Affiliation:</strong> ${n.affiliation}</p>
-      <p><strong>Citations:</strong> ${n.citations}</p>
-      <p><strong>h-index:</strong> ${n.hIndex}</p>
-      <p><strong>Co-authors:</strong> ${n.coauthors}</p>
-      <p><strong>Publication Range:</strong> ${n.publicationRange}</p>
-      ${areaHTML}
-    `;
-        const toggle = document.getElementById('area-toggle');
-        if(toggle){
-            toggle.addEventListener('click',e=>{
-                e.preventDefault();
-                document.getElementById('area-short').style.display='none';
-                toggle.style.display='none';
-                document.getElementById('area-full').style.display='block';
-            });
-        }
-    });
+  myChart.setOption(option);
 }
 
 async function loadTheses() {
