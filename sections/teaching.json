@@ -1,18 +1,56 @@
 {
   "teaching": [
     {
-      "type": "Winner of selection for Fixed-Term Researcher Type A",
-      "duration": "3 years",
+      "type": "Assistant Professor (RTD-A)",
+      "academicYear": "2024/2025",
+      "date": "12/03/2025",
+      "school": "University of Florence – Degree Class in Economics and Business Management",
+      "course": "Sustainable Business for Societal Challenges (L-18)",
+      "teaching": "Neuroscience of Social-Cognitive Enhancement for Well-Being and Neural Bases of Decision Processes",
+      "hours": 17
+    },
+    {
+      "type": "Assistant Professor (RTD-A)",
+      "academicYear": "2024/2025",
+      "date": "03/10/2024",
       "school": "University of Florence – School of Psychology",
-      "period": "01 September 2023 – 01 September 2026",
-      "course": "Physiological Psychology & Psychobiology with elements of Developmental Cognitive Neuroscience"
+      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (L-24)",
+      "teaching": "Psychobiology with Elements of Developmental Cognitive Neuroscience",
+      "hours": 42
+    },
+    {
+      "type": "Assistant Professor (RTD-A)",
+      "academicYear": "2023/2024",
+      "date": "05/10/2023",
+      "school": "University of Florence – School of Psychology",
+      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
+      "teaching": "Psychobiology with Elements of Developmental Cognitive Neuroscience",
+      "hours": 42
+    },
+     {
+      "type": "Adjunct Professor",
+      "academicYear": "2022/2023",
+      "date": "16/11/2022",
+      "school": "University of Florence – School of Psychology",
+      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
+      "teaching": "Psychobiology of Resilience and Vulnerability",
+      "hours": 42
+    },
+    {
+      "type": "Adjunct Professor",
+      "academicYear": "2022/2023",
+      "date": "16/11/2022",
+      "school": "University of Florence – School of Psychology",
+      "course": "BSc in Psychological Science and Techniques (L-24)",
+      "teaching": "Psychobiology & Developmental Cognitive Neuroscience",
+      "hours": 28
     },
     {
       "type": "Adjunct Professor",
       "academicYear": "2021/2022",
       "date": "16/11/2021",
       "school": "University of Florence – School of Psychology",
-      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology",
+      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
       "teaching": "Psychobiology of Resilience and Vulnerability",
       "hours": 42
     },
@@ -33,24 +71,6 @@
       "course": "Master’s in “Kindness in Pediatric Care”",
       "teaching": "Psychobiology of Resilience and Vulnerability: Gene–Environment Interactions",
       "hours": 4
-    },
-    {
-      "type": "Adjunct Professor",
-      "academicYear": "2022/2023",
-      "date": "16/11/2022",
-      "school": "University of Florence – School of Psychology",
-      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
-      "teaching": "Psychobiology of Resilience and Vulnerability",
-      "hours": 42
-    },
-    {
-      "type": "Adjunct Professor",
-      "academicYear": "2022/2023",
-      "date": "16/11/2022",
-      "school": "University of Florence – School of Psychology",
-      "course": "BSc in Psychological Science and Techniques (L-24)",
-      "teaching": "Psychobiology & Developmental Cognitive Neuroscience",
-      "hours": 28
     }
   ]
 }

@@ -155,7 +155,6 @@ async function loadPublications() {
         return { title, names, journal, year, cites, doi };
     });
 
-
     attachPubControls();
     renderPubList();
     attachPubExportButtons();
@@ -1319,8 +1318,9 @@ async function generatePDF() {
                             { text: pub.title, bold: true, margin: [0, 0, 0, 4] },
                             { text: underlineMe(pub.names), margin: [0, 0, 0, 4] },
                             { text: pub.journal, italics: true, margin: [0, 0, 0, 4] },
+                            { text: `Citations: ${pub.cites ?? '–'}`, margin: [0, 0, 0, 4], color: '#999' },
                             ...(pub.doi ? [{
-                                text: 'DOI',
+                                text: `DOI: ${pub.doi}`,
                                 link: `https://doi.org/${pub.doi}`,
                                 color: accent,
                                 decoration: 'underline',
@@ -1491,7 +1491,16 @@ async function generatePDF() {
               margin: [0, 0, 0, 12]
             },
             createSectionHeader('Publications',accent),
-            ...pubCards
+            ...pubCards,
+            {
+              text: 'Dichiaro, ai sensi degli articoli 46 e 47 del D.P.R. 28 dicembre 2000, n. 445, che quanto riportato nel presente curriculum vitae corrisponde a verità.\n' +
+                  'Autorizzo il trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) e del D.lgs. 196/2003 e successive modifiche.',
+              italics: true,
+              fontSize: 9,
+              margin: [0, 30, 0, 4],
+              alignment: 'left',
+              color: '#999'
+            }
         ],
         defaultStyle:{ fontSize:11 }
     };
