@@ -50,6 +50,15 @@ function initTabs() {
         btn.classList.add('active');
         sec.classList.add('active');
 
+        if (tabName === 'stats') {
+          const container = document.getElementById('network-graph');
+          if (container && container.offsetParent !== null) {
+            setTimeout(() => {
+              echarts.getInstanceByDom(container)?.resize();
+            }, 100);
+          }
+        }
+
         if (push) {
             history.pushState({ tab: tabName }, '', `#${tabName}`);
         }

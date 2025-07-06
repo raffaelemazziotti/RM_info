@@ -330,7 +330,7 @@ a{color:var(--accent);}
 #network-graph {
   width: 100%;
   min-height: 600px;
-  height: auto;
+  height: 600px;
 }
 
 /* vis-network labels styling */
