@@ -1,21 +1,12 @@
 {
-  "organized": [
-    {
-      "title": "Probing brain networks through neuroimaging and neuro-manipulation in behaving animals.",
-      "event": "19th SINS National Congress",
-      "date": "2021-09-10",
-      "role": "Organizzatore",
-      "website": "http://www.sins.it/EN/sins-events/national-congress.xhtml"
-    }
-  ],
   "invited": [
     {
-      "date": "2024-11-11",
+      "date": "2025-11-11",
       "event": "AIRETT Foundation Meeting",
       "title": "Exploring Novel Biomarkers to Enhance Understanding and Treatment of Neurodevelopmental Disorders"
     },
     {
-      "date": "2024-06-16",
+      "date": "2025-06-16",
       "event": "9th EVC (European Vision & Cognition) Meeting",
       "title": "Assessing emotional contagion in mice through pupillometry and whole brain c-fos activation"
     },
@@ -33,6 +24,15 @@
       "date": "2019-05-20",
       "event": "Pint of Science - Pisa",
       "title": "Gli occhi sono lo specchio dell'anima? Cosa rivelano le nostre pupille"
+    }
+  ],
+  "organized": [
+    {
+      "title": "Probing brain networks through neuroimaging and neuro-manipulation in behaving animals.",
+      "event": "19th SINS National Congress",
+      "date": "2021-09-10",
+      "role": "Organizzatore",
+      "website": "http://www.sins.it/EN/sins-events/national-congress.xhtml"
     }
   ]
 }
