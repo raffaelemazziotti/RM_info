@@ -24,9 +24,9 @@
     "Chemistry (all)",
     "Radiology, Nuclear Medicine and Imaging",
     "Pharmacology",
-    "Ophthalmology",
     "Medicine (all)",
     "Biomedical Engineering",
+    "Ophthalmology",
     "Biological Psychiatry",
     "Cellular and Molecular Neuroscience",
     "Biochemistry",
@@ -44,10 +44,10 @@
     "Radiological and Ultrasound Technology",
     "Computer Vision and Pattern Recognition"
   ],
-  "citation_count": "658",
-  "document_count": "38",
+  "citation_count": "661",
+  "document_count": "39",
   "h_index": "17",
-  "coauthor_n": "167",
+  "coauthor_n": "170",
   "publication_range": [
     "2015",
     "2025"
