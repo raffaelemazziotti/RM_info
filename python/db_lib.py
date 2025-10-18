@@ -210,6 +210,7 @@ class ScopusAPI:
             print(f"### SCOPUS ### Response status code: {response.status_code} for article_id: {article_id}")
             return None
 
+
 class ScopusDB:
 
     def __init__(self, db_name):
@@ -673,7 +674,10 @@ class ScopusDB:
             authors = [self.get_author(author_id) for author_id in data["authors"].split("|")]
             affiliations = [self.get_affiliation(aff_id) for aff_id in data["affiliations"].split("|")]
             data['authors'] = authors
-            data['authors_id'] = [str(author['id']) for author in authors]
+            try:
+                data['authors_id'] = [str(author['id']) if author else None for author in authors]
+            except:
+                print('qui')
             data['affiliations'] = affiliations
             data['affiliations_id'] = [str(affiliation['id']) if affiliation else None for affiliation in affiliations]
             data['journal'] = journal
@@ -743,6 +747,22 @@ class ScopusDB:
             articles.append(article_info)
 
         return articles
+
+    def delete_article(self, article_id):
+        """
+        Delete an article from the database by ID.
+        """
+        if not self.connection:
+            raise ConnectionError("Database is not connected.")
+
+        # Check existence
+        if not self.record_exists("articles", article_id):
+            print(f"Article with ID {article_id} does not exist.")
+            return False
+
+        query = "DELETE FROM articles WHERE id = ?"
+        self.execute_query(query, (article_id,))
+        return True
 
 
 

@@ -13,10 +13,10 @@ me = '57110486800'
 scopus = ScopusAPI()
 
 auth_info = scopus.get_author(me)
-with open("data/scopus_author_info.json", "w", encoding="utf-8") as f:
+with open("../data/scopus_author_info.json", "w", encoding="utf-8") as f:
     json.dump(auth_info, f, ensure_ascii=False, indent=2)
 
-db = ScopusDB('data/scopus.db')
+db = ScopusDB('../data/scopus.db')
 db.create_tables()
 db.connect()
 
@@ -29,6 +29,20 @@ print('Article N:', end=' ')
 for i,article in enumerate(articles):
     print(i,end=' ')
     db.insert_or_update_article(article)
+
+# Update authors
+print('Update authors...')
+#authors = [str(aid) for aid in np.unique([ids['id'] if type(ids)==dict else ids for article in articles for ids in article['authors']])]
+#authors = [str(aid) for aid in np.unique([ids['id'] if isinstance(ids, dict) else ids for article in articles for ids in article['authors_id'] if (ids and (not isinstance(ids, dict) or ids.get('id') is not None))])]
+authors = [str(aid) for aid in np.unique([ids['id'] if isinstance(ids, dict) else ids for article in articles for ids in article['authors_id'] if (ids and (not isinstance(ids, dict) or ids.get('id') is not None))])]
+
+for author in authors:
+    if author in ['56659183500','57224367426','58914488900','57223797968','57110486800','6701678655']:
+        print('ecco')
+    if not (db.record_exists('authors', author)):
+        author_raw = scopus.get_author(author)
+        db.insert_author(author_raw)
+        time.sleep(0.5)
 
 # Update journals
 print('Update journals...')
@@ -58,16 +72,6 @@ for i,jid in enumerate(journals):
     else:
         print(f"journal {jid} already exists")
 
-# Update authors
-print('Update authors...')
-#authors = [str(aid) for aid in np.unique([ids['id'] if type(ids)==dict else ids for article in articles for ids in article['authors']])]
-authors = [str(aid) for aid in np.unique([ids['id'] if isinstance(ids, dict) else ids for article in articles for ids in article['authors'] if (ids and (not isinstance(ids, dict) or ids.get('id') is not None))])]
-
-for author in authors:
-    if not (db.record_exists('authors', author)):
-        author_raw = scopus.get_author(author)
-        db.insert_author(author_raw)
-        time.sleep(0.5)
 
 # Update affiliations
 print('Update affiliations...')
@@ -113,13 +117,13 @@ for row in rows:
 
 output = { 'homePubs': data }
 
-out_path = Path('sections/home_pubs.json')
+out_path = Path('../sections/home_pubs.json')
 with out_path.open('w', encoding='utf-8') as f:
     json.dump(output, f, ensure_ascii=False, indent=2)
 
 
 now = datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
-out = Path('data/last_updated.txt')
+out = Path('../data/last_updated.txt')
 out.write_text(now, encoding='utf-8')
 
 
