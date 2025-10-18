@@ -344,20 +344,54 @@ class ScopusDB:
             ", ".join(author['area']) if author['area'] else None
         ))
 
-    def update_affiliation(self, affiliation_id, updates):
+    def insert_or_update_author(self, author):
         """
-        Updates an existing affiliation record with specified fields.
+        Inserts a new author or updates the existing one while keeping old values for unspecified fields.
 
         Parameters:
-        - affiliation_id: The ID of the affiliation to update
-        - updates: A dictionary containing the fields to update and their new values
+        - author: A dictionary containing author information
         """
-        # Dynamically build the SQL update query and parameter list
-        set_clause = ", ".join([f"{key} = ?" for key in updates.keys()])
-        parameters = list(updates.values()) + [affiliation_id]
+        if self.record_exists("authors", author['id']):
+            existing_author = self.get_author(author['id'])
 
-        query = f"UPDATE affiliations SET {set_clause} WHERE id = ?"
-        self.execute_query(query, parameters)
+            updates = {
+                "surname": author.get('surname', existing_author["surname"]),
+                "name": author.get('name', existing_author["name"]),
+                "auth": author.get('auth', existing_author["auth"]),
+                "affid": author.get('affid', existing_author["affid"]),
+                "citation_count": author.get('citation_count', existing_author["citation_count"]),
+                "document_count": author.get('document_count', existing_author["document_count"]),
+                "h_index": author.get('h_index', existing_author["h_index"]),
+                "coauthor_count": author.get('coauthor_n', existing_author["coauthor_count"]),
+                "publication_start_year":
+                    author.get('publication_range', [existing_author["publication_start_year"], None])[0],
+                "publication_end_year":
+                    author.get('publication_range', [None, existing_author["publication_end_year"]])[1],
+                "area": ", ".join(author['area']) if author.get('area') else existing_author["area"]
+            }
+
+            set_clause = ", ".join([f"{col} = ?" for col in updates.keys()])
+            query = f"UPDATE authors SET {set_clause} WHERE id = ?"
+            parameters = list(updates.values()) + [author['id']]
+            self.execute_query(query, parameters)
+
+        else:
+            query = '''INSERT INTO authors (id, surname, name, auth, affid, citation_count, document_count, h_index, coauthor_count, publication_start_year, publication_end_year, area)
+                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'''
+            self.execute_query(query, (
+                author['id'],
+                author.get('surname'),
+                author.get('name'),
+                author.get('auth'),
+                author.get('affid'),
+                author.get('citation_count', 0),
+                author.get('document_count', 0),
+                author.get('h_index', 0),
+                author.get('coauthor_n', 0),
+                author.get('publication_range', [None, None])[0],
+                author.get('publication_range', [None, None])[1],
+                ", ".join(author.get('area', [])) if author.get('area') else None
+            ))
 
     def insert_or_update_affiliation(self, affiliation):
         """
@@ -608,43 +642,6 @@ class ScopusDB:
 
         query = f"UPDATE affiliations SET {set_clause} WHERE id = ?"
         self.execute_query(query, parameters)
-
-    def insert_or_update_affiliation(self, affiliation):
-        """
-        Inserts a new affiliation or updates the existing one while keeping old values for unspecified fields.
-
-        Parameters:
-        - affiliation: A dictionary containing affiliation information
-        """
-        if self.record_exists("affiliations", affiliation['id']):
-            # Fetch existing affiliation data
-            existing_affiliation = self.get_affiliation(affiliation['id'])
-
-            # Prepare update values, keeping existing ones if not provided
-            updates = {
-                "name": affiliation.get('name', existing_affiliation["name"]),
-                "address": affiliation.get('address', existing_affiliation["address"]),
-                "city": affiliation.get('city', existing_affiliation["city"]),
-                "country": affiliation.get('country', existing_affiliation["country"]),
-                "postal_code": affiliation.get('postal_code', existing_affiliation["postal_code"]),
-                "publication_count": affiliation.get('publication_count', existing_affiliation["publication_count"])
-            }
-
-            # Update the existing affiliation
-            self.update_affiliation(affiliation['id'], updates)
-        else:
-            # Perform the insert if the affiliation does not exist
-            query = '''INSERT INTO affiliations (id, name, address, city, country, postal_code, publication_count)
-                       VALUES (?, ?, ?, ?, ?, ?, ?)'''
-            self.execute_query(query, (
-                affiliation['id'],
-                affiliation.get('name'),
-                affiliation.get('address'),
-                affiliation.get('city'),
-                affiliation.get('country'),
-                affiliation.get('postal_code'),
-                affiliation.get('publication_count', 0)
-            ))
 
     # Getters for Authors
     def get_author(self, author_id):

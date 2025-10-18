@@ -403,181 +403,205 @@ export function renderCoauthorNetwork(data) {
 }
 
 async function loadStats() {
-    /* 1. Load you (Scopus) and Scholar info */
-    const scopus     = await fetch('data/scopus_author_info.json').then(r => r.json());
-    const meId       = scopus.id;
-    const scholarCSV = await fetch('data/scholar_author_info.csv').then(r => r.text());
-    const [h, row]   = scholarCSV.trim().split('\n').map(l => l.split(','));
-    const scholar    = Object.fromEntries(h.map((k,i) => [k.trim().toLowerCase(), row[i].trim()]));
+  /* 1. Load you (Scopus) and Scholar info */
+  const scopus = await fetch('data/scopus_author_info.json').then(r => r.json());
+  const meId = scopus.id;
+  const scholarCSV = await fetch('data/scholar_author_info.csv').then(r => r.text());
+  const [h, row] = scholarCSV.trim().split('\n').map(l => l.split(','));
+  const scholar = Object.fromEntries(h.map((k, i) => [k.trim().toLowerCase(), row[i].trim()]));
 
-    /* 2. Load citations-per-year */
-    const [cpyHead,cpyRow] = (await fetch('data/citations_per_year.csv').then(r=>r.text()))
-        .trim().split('\n').map(l=>l.split(','));
-    const citYears  = cpyHead.slice();
-    const citCounts = cpyRow.map(v=>+v);
+  /* 2. Load citations-per-year */
+  const [cpyHead, cpyRow] = (await fetch('data/citations_per_year.csv').then(r => r.text()))
+    .trim()
+    .split('\n')
+    .map(l => l.split(','));
+  const citYears = cpyHead.slice();
+  const citCounts = cpyRow.map(v => +v);
 
-    /* 3. Open scopus.db */
-    const SQL = await window.initSqlJs({ locateFile:f=>`https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${f}` });
-    const buf = await fetch('data/scopus.db').then(r=>r.arrayBuffer());
-    const db  = new SQL.Database(new Uint8Array(buf));
+  /* 3. Open scopus.db */
+  const SQL = await window.initSqlJs({
+    locateFile: f => `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${f}`
+  });
+  const buf = await fetch('data/scopus.db').then(r => r.arrayBuffer());
+  const db = new SQL.Database(new Uint8Array(buf));
 
-    /* 4. Compute articles/year */
-    const artRows = db.exec(
-        "SELECT substr(year,1,4) y, COUNT(*) c FROM articles GROUP BY y"
-    )[0]?.values||[];
-    const artMap    = Object.fromEntries(artRows);
-    const years     = [...new Set([...citYears, ...Object.keys(artMap)])].sort();
-    const artCounts = years.map(y=>artMap[y]||0);
-    const citAligned= years.map(y=>{
-        const idx= citYears.indexOf(y);
-        return idx>=0? citCounts[idx]:0;
-    });
+  /* 4. Compute articles/year */
+  const artRows = db.exec(
+    "SELECT substr(year,1,4) y, COUNT(*) c FROM articles GROUP BY y"
+  )[0]?.values || [];
+  const artMap = Object.fromEntries(artRows);
+  const years = [...new Set([...citYears, ...Object.keys(artMap)])].sort();
+  const artCounts = years.map(y => artMap[y] || 0);
+  const citAligned = years.map(y => {
+    const idx = citYears.indexOf(y);
+    return idx >= 0 ? citCounts[idx] : 0;
+  });
 
-    /* 5. Tiles */
-    const tiles = [
-        { label:'Articles<br>Scopus', value:scopus.document_count||'-' },
-        { label:'Citations<br>Scholar', value:scholar['citations']||'-' },
-        { label:'h-index<br>Scholar',   value:scholar['hindex']  ||'-' },
-        { label:'Citations<br>Scopus',  value:scopus.citation_count },
-        { label:'h-index<br>Scopus',    value:scopus.h_index }
-    ];
-    const summary = document.getElementById('stats-summary');
-    summary.innerHTML='';
-    tiles.forEach(t=>{
-        const d=document.createElement('div');
-        d.className='stats-tile';
-        d.innerHTML=`<h3>${t.value}</h3><span>${t.label}</span>`;
-        summary.appendChild(d);
-    });
+  /* 5. Tiles */
+  const tiles = [
+    { label: 'Articles<br>Scopus', value: scopus.document_count || '-' },
+    { label: 'Citations<br>Scholar', value: scholar['citations'] || '-' },
+    { label: 'h-index<br>Scholar', value: scholar['hindex'] || '-' },
+    { label: 'Citations<br>Scopus', value: scopus.citation_count },
+    { label: 'h-index<br>Scopus', value: scopus.h_index }
+  ];
+  const summary = document.getElementById('stats-summary');
+  summary.innerHTML = '';
+  tiles.forEach(t => {
+    const d = document.createElement('div');
+    d.className = 'stats-tile';
+    d.innerHTML = `<h3>${t.value}</h3><span>${t.label}</span>`;
+    summary.appendChild(d);
+  });
 
-    /* 6. Chart */
-    const ctx = document.getElementById('stats-citations-chart').getContext('2d');
-    new Chart(ctx,{
-        data:{ labels:years, datasets:[
-                { type:'bar',  label:'Articles',  data:artCounts,  yAxisID:'y1',
-                    backgroundColor:'rgba(129,162,190,.35)', borderColor:'rgba(129,162,190,1)' },
-                { type:'line', label:'Citations', data:citAligned, yAxisID:'y',
-                    borderColor:'rgba(255,255,255,1)', backgroundColor:'rgba(255,255,255,.15)',
-                    fill:true, tension:.25 }
-            ]},
-        options:{
-            plugins:{legend:{display:false}},
-            scales:{
-                y:  { title:{display:true,text:'Citations'}, beginAtZero:true },
-                y1: { title:{display:true,text:'Articles'}, beginAtZero:true,
-                    position:'right', grid:{drawOnChartArea:false} }
-            }
+  /* 6. Build and show local Chart.js chart (on-page view) */
+  if (window.statsChartInstance) window.statsChartInstance.destroy();
+  const ctx = document.getElementById('stats-citations-chart').getContext('2d');
+  window.statsChartInstance = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: years,
+      datasets: [
+        {
+          type: 'bar',
+          label: 'Articles',
+          data: artCounts,
+          yAxisID: 'y1',
+          backgroundColor: 'rgba(129,162,190,.35)',
+          borderColor: 'rgba(129,162,190,1)'
+        },
+        {
+          type: 'line',
+          label: 'Citations',
+          data: citAligned,
+          yAxisID: 'y',
+          borderColor: '#ffffff',
+          backgroundColor: 'rgba(255,255,255,.15)',
+          fill: true,
+          tension: 0.25
         }
-    });
+      ]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: {
+        y: {
+          title: { display: true, text: 'Citations' },
+          beginAtZero: true
+        },
+        y1: {
+          title: { display: true, text: 'Articles' },
+          beginAtZero: true,
+          position: 'right',
+          grid: { drawOnChartArea: false }
+        }
+      }
+    }
+  });
 
-    /* 7. Top 10 Collaborators */
-    const coCounts = {};
-    db.exec('SELECT authors FROM articles')[0].values.forEach(([as])=>{
-        const ids= as.split('|').filter(Boolean);
-        if(!ids.includes(meId)) return;
-        ids.filter(id=>id!==meId).forEach(co=>{
-            coCounts[co]=(coCounts[co]||0)+1;
-        });
-    });
-    const top10 = Object.entries(coCounts)
-        .sort(([,a],[,b])=>b-a)
-        .slice(0,10)
-        .map(([id,cnt])=>({id,cnt}));
+  /* 7. Fetch remote static image for PDF */
+  //window.statsChartImg = await fetchChartImageFromQuickChart(years, artCounts, citAligned);
+  //console.log('Chart image captured via QuickChart');
 
-    const collabContainer = document.getElementById('collaborators-table-container');
-    collabContainer.innerHTML='';
-    const tbl = document.createElement('table');
-    tbl.style.width='100%'; tbl.style.borderCollapse='collapse';
-    tbl.innerHTML=`
+  /* 8. Top 10 Collaborators */
+  const coCounts = {};
+  db.exec('SELECT authors FROM articles')[0].values.forEach(([as]) => {
+    const ids = as.split('|').filter(Boolean);
+    if (!ids.includes(meId)) return;
+    ids.filter(id => id !== meId).forEach(co => {
+      coCounts[co] = (coCounts[co] || 0) + 1;
+    });
+  });
+  const top10 = Object.entries(coCounts)
+    .sort(([, a], [, b]) => b - a)
+    .slice(0, 10)
+    .map(([id, cnt]) => ({ id, cnt }));
+
+  const collabContainer = document.getElementById('collaborators-table-container');
+  collabContainer.innerHTML = '';
+  const tbl = document.createElement('table');
+  tbl.style.width = '100%';
+  tbl.style.borderCollapse = 'collapse';
+  tbl.innerHTML = `
     <thead>
       <tr>
         <th style="text-align:left;padding:6px;color:#fff">Collaborator</th>
         <th style="text-align:center;padding:6px;color:#fff"># Pubs</th>
       </tr>
     </thead>`;
-    const body = document.createElement('tbody');
-    top10.forEach(({id,cnt},i)=>{
-        const [[name,surname]] = db.exec(
-            `SELECT name,surname FROM authors WHERE id='${id}'`
-        )[0].values;
-        const tr=document.createElement('tr');
-        tr.style.background = i%2?'var(--bg-light)':'transparent';
+  const body = document.createElement('tbody');
+  top10.forEach(({ id, cnt }, i) => {
+    const [[name, surname]] = db.exec(
+      `SELECT name,surname FROM authors WHERE id='${id}'`
+    )[0].values;
+    const tr = document.createElement('tr');
+    tr.style.background = i % 2 ? 'var(--bg-light)' : 'transparent';
 
-        const td1=document.createElement('td');
-        td1.style.padding='6px';
-        const a=document.createElement('a');
-        a.href=`https://www.scopus.com/authid/detail.uri?authorId=${id}`;
-        a.target='_blank';
-        a.textContent=`${surname} ${name}`;
-        a.style.color='var(--accent)';
-        a.style.textDecoration='underline';
-        td1.appendChild(a);
+    const td1 = document.createElement('td');
+    td1.style.padding = '6px';
+    const a = document.createElement('a');
+    a.href = `https://www.scopus.com/authid/detail.uri?authorId=${id}`;
+    a.target = '_blank';
+    a.textContent = `${surname} ${name}`;
+    a.style.color = 'var(--accent)';
+    a.style.textDecoration = 'underline';
+    td1.appendChild(a);
 
-        const td2=document.createElement('td');
-        td2.style.padding='6px';
-        td2.style.textAlign='center';
-        td2.style.color='var(--text)';
-        td2.textContent=cnt;
+    const td2 = document.createElement('td');
+    td2.style.padding = '6px';
+    td2.style.textAlign = 'center';
+    td2.style.color = 'var(--text)';
+    td2.textContent = cnt;
 
-        tr.append(td1,td2);
-        body.appendChild(tr);
-    });
-    tbl.appendChild(body);
-    collabContainer.appendChild(tbl);
+    tr.append(td1, td2);
+    body.appendChild(tr);
+  });
+  tbl.appendChild(body);
+  collabContainer.appendChild(tbl);
 
-    /*
-    const descEl = document.querySelector('.network-description') ||
-        document.createElement('p');
-    descEl.className='network-description';
-    descEl.textContent =
-        "This co-author network shows Raffaele Mazziotti’s collaborators. " +
-        "Node size ∝ h-index; edge thickness ∝ joint publications. " +
-        "Hover/click a node for details; drag/zoom to explore.";
-    document.getElementById('stats').appendChild(descEl);*/
-
-    /* 9. Build network */
+  /* 9. Build network (unchanged) */
   const affRes = db.exec('SELECT id,name FROM affiliations')[0].values;
   const affMap = Object.fromEntries(affRes);
-
   const authRes = db.exec(`
     SELECT id,auth,name,surname,affid,
            citation_count,h_index,area,
            publication_start_year,publication_end_year
     FROM authors
   `)[0].values;
+  const authors = authRes.map(
+    ([id, auth, name, surname, affid, cites, hIndex, area, startY, endY]) => ({
+      id,
+      auth,
+      name,
+      surname,
+      affiliation: affMap[affid] || 'Unknown Affiliation',
+      citations: +cites || 0,
+      hIndex: +hIndex || 0,
+      area: area || '',
+      publicationRange: startY && endY ? `${startY} – ${endY}` : ''
+    })
+  );
 
-  const authors = authRes.map(([id,auth,name,surname,affid,cites,hIndex,area,startY,endY]) => ({
-    id, auth, name, surname,
-    affiliation: affMap[affid] || 'Unknown Affiliation',
-    citations: +cites || 0,
-    hIndex: +hIndex || 0,
-    area: area || '',
-    publicationRange: startY && endY ? `${startY} – ${endY}` : ''
-  }));
-
-  const weight = {}, seen = new Set();
-  const links = [], nodes = [];
-  const coSet = {};
-
+  const weight = {}, links = [], coSet = {};
   db.exec('SELECT authors FROM articles')[0].values.forEach(([as]) => {
     const ids = as.split('|').filter(Boolean);
-    ids.forEach(id => coSet[id] = coSet[id] || new Set());
+    ids.forEach(id => (coSet[id] = coSet[id] || new Set()));
     for (let i = 0; i < ids.length; i++) {
       for (let j = i + 1; j < ids.length; j++) {
         const [a, b] = [ids[i], ids[j]].sort();
         const key = `${a}-${b}`;
         weight[key] = (weight[key] || 0) + 1;
-        coSet[a].add(b); coSet[b].add(a);
+        coSet[a].add(b);
+        coSet[b].add(a);
       }
     }
   });
 
   const maxH = Math.max(...authors.map(a => a.hIndex), 1);
   const meLower = document.querySelector('.last-name').textContent.trim().toLowerCase();
-
-  authors.forEach(a => {
+  const nodes = authors.map(a => {
     const mine = a.surname.toLowerCase() === meLower;
-    nodes.push({
+    return {
       id: a.id,
       name: a.auth,
       tooltip: {
@@ -588,19 +612,10 @@ async function loadStats() {
           `h-index: ${a.hIndex}<br>` +
           `Years active: ${a.publicationRange}`
       },
-      label: {
-        show: mine, // always show only for user node
-        position: 'right'
-      },
+      label: { show: mine, position: 'right' },
       emphasis: {
-        label: {
-          show: true
-        },
-        itemStyle: {
-          color: '#3a7fb6',
-          borderColor: '#ffffff',
-          borderWidth: 2
-        }
+        label: { show: true },
+        itemStyle: { color: '#3a7fb6', borderColor: '#ffffff', borderWidth: 2 }
       },
       symbolSize: 10 + (a.hIndex / maxH) * 30,
       itemStyle: {
@@ -608,55 +623,33 @@ async function loadStats() {
         borderColor: '#81a2be',
         borderWidth: 1
       }
-    });
+    };
   });
-
   Object.entries(weight).forEach(([k, v]) => {
     const [from, to] = k.split('-');
     links.push({ source: from, target: to, value: v });
   });
-
   const chartDom = document.getElementById('network-graph');
   const myChart = echarts.init(chartDom);
-
-  const option = {
+  myChart.setOption({
     tooltip: {
       trigger: 'item',
       confine: true,
-      formatter: function (params) {
-        return params.data.tooltip?.formatter || params.data.name;
-      }
+      formatter: p => p.data.tooltip?.formatter || p.data.name
     },
     series: [{
       type: 'graph',
       layout: 'force',
       roam: true,
       focusNodeAdjacency: true,
-      label: {
-        position: 'right'
-      },
-      force: {
-        repulsion: 100,
-        edgeLength: 60
-      },
+      label: { position: 'right' },
+      force: { repulsion: 100, edgeLength: 60 },
       data: nodes,
-      links: links,
-      lineStyle: {
-        color: '#999',
-        width: 1,
-        opacity: 0.5
-      },
-      emphasis: {
-        focus: 'adjacency',
-        lineStyle: {
-          color: '#3a7fb6',
-          width: 2
-        }
-      }
+      links,
+      lineStyle: { color: '#999', width: 1, opacity: 0.5 },
+      emphasis: { focus: 'adjacency', lineStyle: { color: '#3a7fb6', width: 2 } }
     }]
-  };
-
-  myChart.setOption(option);
+  });
 }
 
 async function loadTheses() {
@@ -1237,280 +1230,444 @@ function underlineMe(authorsStr) {
 }
 
 async function generatePDF() {
-    const accent = '#6e6e6e';
-    const siteURL = 'https://raffaelemazziotti.github.io/RM_info/';
+  const accent = '#6e6e6e';
+  const siteURL = 'https://raffaelemazziotti.github.io/RM_info/';
 
-    // 0) Ensure publications are loaded
-    await loadPublications();
+  // --- ensure publications in memory ---
+  await loadPublications();
 
-    // 1) Load JSON data
-    const aboutRaw     = await fetch('sections/about.json').then(r => r.json());
-    const eduData      = await fetch('sections/education.json').then(r => r.json());
-    const expData      = await fetch('sections/experience.json').then(r => r.json());
-    const thesesData   = await fetch('sections/theses.json').then(r => r.json());
-    const sympData     = await fetch('sections/symposia.json').then(r => r.json());
-    const postersData  = await fetch('sections/posters.json').then(r => r.json());
-    const patentsData  = await fetch('sections/patents.json').then(r => r.json());
-    const skillsData   = await fetch('sections/tech_skills.json').then(r => r.json());
-    const teachingData = await fetch('sections/teaching.json').then(r => r.json());
-    const awardsData   = await fetch('sections/awards.json').then(r => r.json());
-    const grantsData   = await fetch('sections/grants.json').then(r => r.json());
-    const linksJson    = await fetch('sections/links.json').then(r => r.json());
+  // --- recompute stats locally for the inline chart ---
+  const [cpyHead, cpyRow] = (await fetch('data/citations_per_year.csv').then(r => r.text()))
+    .trim().split('\n').map(l => l.split(','));
+  const citYears   = cpyHead.slice();
+  const citCounts  = cpyRow.map(v => +v);
 
-    // load stats
-    const scopus = await fetch('data/scopus_author_info.json').then(r => r.json());
-    const scholarCSV = await fetch('data/scholar_author_info.csv').then(r => r.text());
-    const [h, row] = scholarCSV.trim().split('\n').map(l => l.split(','));
-    const scholar = Object.fromEntries(h.map((k,i) => [k.trim().toLowerCase(), row[i].trim()]));
+  const SQL = await window.initSqlJs({ locateFile:f=>`https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.8.0/${f}` });
+  const buf = await fetch('data/scopus.db').then(r => r.arrayBuffer());
+  const db  = new SQL.Database(new Uint8Array(buf));
+  const artRows = db.exec("SELECT substr(year,1,4) y, COUNT(*) c FROM articles GROUP BY y")[0]?.values || [];
+  const artMap  = Object.fromEntries(artRows);
 
-    // 2) Parse About HTML into an array of inline text/link objects
-    const aboutHtml = aboutRaw.about.content_html;
-    const aboutInline = [];
-    let lastIndex = 0;
-    const linkRe = /<a\s+href="([^"]+)"[^>]*>(.*?)<\/a>/gi;
-    let match;
-    while ((match = linkRe.exec(aboutHtml)) !== null) {
-        const [full, href, linkText] = match;
-        if (match.index > lastIndex) {
-            const txt = aboutHtml.slice(lastIndex, match.index).replace(/<[^>]+>/g, '');
-            aboutInline.push({ text: txt });
-        }
-        aboutInline.push({
-            text: linkText,
-            link: href,
-            color: accent,
-            decoration: 'underline'
-        });
-        lastIndex = match.index + full.length;
+  const years = [...new Set([...citYears, ...Object.keys(artMap)])].sort();
+  const artCounts = years.map(y => +artMap[y] || 0);
+  const citAligned = years.map(y => {
+    const i = citYears.indexOf(y);
+    return i >= 0 ? +citCounts[i] : 0;
+  });
+
+  // --- inline dual-axis chart (centered, compact, with axis labels and points) ---
+  function createInlineChart(years, bars, line, accent) {
+    if (!years.length) return { text: 'No data available', margin: [0, 10, 0, 20], color: '#999' };
+
+    const w = 450;                  // total width
+    const h = 160;                  // compact total height
+    const margin = { top: 10, right: 45, bottom: 30, left: 45 };
+
+    const plotW = w - margin.left - margin.right;
+    const plotH = h - margin.top - margin.bottom;
+
+    const maxCit = Math.max(...line, 1);
+    const maxArt = Math.max(...bars, 1);
+    const xStep = plotW / years.length;
+    const yCitScale = plotH / maxCit;
+    const yArtScale = plotH / maxArt;
+
+    // bars (articles)
+    const barWidth = xStep * 0.5;
+    const barsSvg = bars.map((v, i) => {
+      const x = margin.left + i * xStep + (xStep - barWidth) / 2;
+      const y = margin.top + (plotH - v * yArtScale);
+      return `<rect x="${x}" y="${y}" width="${barWidth}" height="${v * yArtScale}" fill="rgba(129,162,190,0.6)"/>`;
+    }).join('');
+
+    // line (citations)
+    const linePath = line.map((v, i) => {
+      const x = margin.left + i * xStep + xStep / 2;
+      const y = margin.top + (plotH - v * yCitScale);
+      return `${i === 0 ? 'M' : 'L'}${x},${y}`;
+    }).join(' ');
+    const pointCircles = line.map((v, i) => {
+      const x = margin.left + i * xStep + xStep / 2;
+      const y = margin.top + (plotH - v * yCitScale);
+      return `<circle cx="${x}" cy="${y}" r="3" fill="${accent}" stroke="white" stroke-width="1"/>`;
+    }).join('');
+
+    // axes
+    const ticksL = 5, ticksR = 5;
+    const tickValsL = Array.from({ length: ticksL + 1 }, (_, i) => Math.round((i / ticksL) * maxCit));
+    const tickValsR = Array.from({ length: ticksR + 1 }, (_, i) => Math.round((i / ticksR) * maxArt));
+
+    const yTicksLeft = tickValsL.map(v => {
+      const y = margin.top + (plotH - v * yCitScale);
+      return `
+        <line x1="${margin.left - 5}" y1="${y}" x2="${margin.left}" y2="${y}" stroke="black" stroke-width="1"/>
+        <text x="${margin.left - 8}" y="${y + 3}" font-size="8" text-anchor="end">${v}</text>
+        <line x1="${margin.left}" y1="${y}" x2="${margin.left + plotW}" y2="${y}" stroke="#ccc" stroke-width="0.3"/>
+      `;
+    }).join('');
+
+    const yTicksRight = tickValsR.map(v => {
+      const y = margin.top + (plotH - v * yArtScale);
+      return `
+        <line x1="${margin.left + plotW}" y1="${y}" x2="${margin.left + plotW + 5}" y2="${y}" stroke="black" stroke-width="1"/>
+        <text x="${margin.left + plotW + 8}" y="${y + 3}" font-size="8" text-anchor="start">${v}</text>
+      `;
+    }).join('');
+
+    const xTicks = years.map((yr, i) => {
+      const x = margin.left + i * xStep + xStep / 2;
+      const y = margin.top + plotH;
+      return `
+        <line x1="${x}" y1="${y}" x2="${x}" y2="${y + 3}" stroke="black" stroke-width="1"/>
+        <text x="${x}" y="${y + 14}" font-size="8" text-anchor="middle">${yr}</text>
+      `;
+    }).join('');
+
+    const axesLines = `
+      <line x1="${margin.left}" y1="${margin.top}" x2="${margin.left}" y2="${margin.top + plotH}" stroke="black" stroke-width="1"/>
+      <line x1="${margin.left + plotW}" y1="${margin.top}" x2="${margin.left + plotW}" y2="${margin.top + plotH}" stroke="black" stroke-width="1"/>
+      <line x1="${margin.left}" y1="${margin.top + plotH}" x2="${margin.left + plotW}" y2="${margin.top + plotH}" stroke="black" stroke-width="1"/>
+    `;
+
+    const labels = `
+      <text x="${margin.left - 30}" y="${margin.top + plotH / 2}" font-size="9" text-anchor="middle"
+            transform="rotate(-90 ${margin.left - 30},${margin.top + plotH / 2})">Citations</text>
+      <text x="${margin.left + plotW + 30}" y="${margin.top + plotH / 2}" font-size="9" text-anchor="middle"
+            transform="rotate(90 ${margin.left + plotW + 30},${margin.top + plotH / 2})">Articles</text>
+    `;
+
+    const svg = `
+      <svg width="${w}" height="${h}" viewBox="0 0 ${w} ${h}">
+        <rect x="0" y="0" width="${w}" height="${h}" fill="transparent"/>
+        ${barsSvg}
+        <path d="${linePath}" stroke="${accent}" stroke-width="2" fill="none"/>
+        ${pointCircles}
+        ${axesLines}
+        ${yTicksLeft}
+        ${yTicksRight}
+        ${xTicks}
+        ${labels}
+      </svg>
+    `;
+
+    return { svg, alignment: 'center', margin: [0, 10, 0, 20] };
+  }
+
+  // --- load all JSON sections (as before) ---
+  const aboutRaw     = await fetch('sections/about.json').then(r => r.json());
+  const eduData      = await fetch('sections/education.json').then(r => r.json());
+  const expData      = await fetch('sections/experience.json').then(r => r.json());
+  const thesesData   = await fetch('sections/theses.json').then(r => r.json());
+  const sympData     = await fetch('sections/symposia.json').then(r => r.json());
+  const postersData  = await fetch('sections/posters.json').then(r => r.json());
+  const patentsData  = await fetch('sections/patents.json').then(r => r.json());
+  const skillsData   = await fetch('sections/tech_skills.json').then(r => r.json());
+  const teachingData = await fetch('sections/teaching.json').then(r => r.json());
+  const awardsData   = await fetch('sections/awards.json').then(r => r.json());
+  const grantsData   = await fetch('sections/grants.json').then(r => r.json());
+  const linksJson    = await fetch('sections/links.json').then(r => r.json());
+
+  // stats tiles source
+  const scopus       = await fetch('data/scopus_author_info.json').then(r => r.json());
+  const scholarCSV   = await fetch('data/scholar_author_info.csv').then(r => r.text());
+  const [h, row]     = scholarCSV.trim().split('\n').map(l => l.split(','));
+  const scholar      = Object.fromEntries(h.map((k,i) => [k.trim().toLowerCase(), row[i].trim()]));
+
+  // --- parse About into inline text/link objects ---
+  const aboutHtml = aboutRaw.about.content_html;
+  const aboutInline = [];
+  let lastIndex = 0; let match;
+  const linkRe = /<a\s+href="([^"]+)"[^>]*>(.*?)<\/a>/gi;
+  while ((match = linkRe.exec(aboutHtml)) !== null) {
+    const [full, href, linkText] = match;
+    if (match.index > lastIndex) {
+      const txt = aboutHtml.slice(lastIndex, match.index).replace(/<[^>]+>/g, '');
+      aboutInline.push({ text: txt });
     }
-    if (lastIndex < aboutHtml.length) {
-        const txt = aboutHtml.slice(lastIndex).replace(/<[^>]+>/g, '');
-        aboutInline.push({ text: txt });
-    }
+    aboutInline.push({ text: linkText, link: href, color: accent, decoration: 'underline' });
+    lastIndex = match.index + full.length;
+  }
+  if (lastIndex < aboutHtml.length) {
+    const txt = aboutHtml.slice(lastIndex).replace(/<[^>]+>/g, '');
+    aboutInline.push({ text: txt });
+  }
 
-    // 3) Load profile image
-    const profileImg = await toDataURL('images/profile.jpg');
-
-    // 4) Contacts table (from links.json)
-    const contactRows = linksJson.links
-        .flatMap(category => category.items)
-        .map(item => [
-            { text: item.name + ':', bold: true },
-            { text: item.url, link: item.url, color: accent, decoration: 'underline' }
-        ]);
-
-    // 5) Publication cards
-    const pubCards = window.allPubs
-        .sort((a, b) => b.year - a.year)
-        .flatMap(pub => [{
-            table: {
-                widths: [40, '*'],
-                body: [[
-                    {
-                        text: String(pub.year),
-                        bold: true,
-                        color: '#fff',
-                        fillColor: accent,
-                        alignment: 'center',
-                        margin: [0, 6, 0, 6]
-                    },
-                    {
-                        stack: [
-                            { text: pub.title, bold: true, margin: [0, 0, 0, 4] },
-                            { text: underlineMe(pub.names), margin: [0, 0, 0, 4] },
-                            { text: pub.journal, italics: true, margin: [0, 0, 0, 4] },
-                            ...(pub.roles && pub.roles.length
-                                ? [{ text: `Role: ${pub.roles.join(', ')} author`, margin: [0, 0, 0, 4], color: accent }]
-                                : []),
-                            { text: `Citations: ${pub.cites ?? '–'}`, margin: [0, 0, 0, 4], color: '#999' },
-                            ...(pub.doi ? [{
-                                text: `DOI: ${pub.doi}`,
-                                link: `https://doi.org/${pub.doi}`,
-                                color: accent,
-                                decoration: 'underline',
-                                margin: [0, 4, 0, 4]
-                            }] : [])
-                        ]
-                    }
-                ]]     // <-- two closes here for the two opening “[ [”
-            },
-            layout: {
-                hLineWidth: () => 0.5,
-                vLineWidth: () => 0,
-                hLineColor: () => accent,
-                paddingLeft: () => 6,
-                paddingRight: () => 6,
-                paddingTop: () => 6,
-                paddingBottom: () => 6
-            },
-            margin: [0, 8, 0, 8]
-        }]);
-
-    // 6) Experience rows
-    const expRows = expData.map(e=>[
-        { text: e.period, bold:true, margin:[0,2,0,2] },
-        { text: `${e.position}, ${e.institution}` + (e.duration?` (${e.duration})`:''), italics:true }
+  // --- profile image and contacts table ---
+  const profileImg = await toDataURL('images/profile.jpg');
+  const contactRows = linksJson.links
+    .flatMap(category => category.items)
+    .map(item => [
+      { text: item.name + ':', bold: true },
+      { text: item.url, link: item.url, color: accent, decoration: 'underline' }
     ]);
 
-    // 7) Teaching rows
-    const teachRows = teachingData.teaching.map(item => {
-        const period = item.period || item.date || item.academicYear || '';
-        const detailStack = [
-            { text: item.type, bold: true },
-            item.course   ? { text: 'Course: ' + item.course } : null,
-            item.teaching ? { text: 'Teaching: ' + item.teaching } : null,
-            item.hours    ? { text: 'Hours: ' + item.hours } : null
-        ].filter(Boolean);
-        return [
-            { text: period, bold: true, margin: [0,2,0,2] },
-            { stack: detailStack, margin: [0,2,0,2] }
-        ];
-    });
+  // --- publication cards (unchanged layout, includes roles) ---
+  const pubCards = window.allPubs
+    .sort((a, b) => b.year - a.year)
+    .flatMap(pub => [{
+      table: {
+        widths: [40, '*'],
+        body: [[
+          {
+            text: String(pub.year),
+            bold: true,
+            color: '#fff',
+            fillColor: accent,
+            alignment: 'center',
+            margin: [0, 6, 0, 6]
+          },
+          {
+            stack: [
+              { text: pub.title, bold: true, margin: [0, 0, 0, 4] },
+              { text: underlineMe(pub.names), margin: [0, 0, 0, 4] },
+              { text: pub.journal, italics: true, margin: [0, 0, 0, 4] },
+              ...(pub.roles && pub.roles.length
+                ? [{ text: `Role: ${pub.roles.join(', ')} author`, margin: [0, 0, 0, 4], color: accent }]
+                : []),
+              { text: `Citations: ${pub.cites ?? '–'}`, margin: [0, 0, 0, 4], color: '#999' },
+              ...(pub.doi ? [{
+                text: `DOI: ${pub.doi}`,
+                link: `https://doi.org/${pub.doi}`,
+                color: accent,
+                decoration: 'underline',
+                margin: [0, 4, 0, 4]
+              }] : [])
+            ]
+          }
+        ]]
+      },
+      layout: {
+        hLineWidth: () => 0.5,
+        vLineWidth: () => 0,
+        hLineColor: () => accent,
+        paddingLeft: () => 6,
+        paddingRight: () => 6,
+        paddingTop: () => 6,
+        paddingBottom: () => 6
+      },
+      margin: [0, 8, 0, 8]
+    }]);
 
-    // 8) Award rows
-    const awardRows = awardsData.awards.map(item => {
-        const period = item.date || item.year || item.academicYear || '';
-        const details = [
-            item.institution ? `Institution: ${item.institution}` : null,
-            item.issuer      ? `Issuer: ${item.issuer}`           : null,
-            item.event       ? `Event: ${item.event}`             : null,
-            item.organizer   ? `Organizer: ${item.organizer}`     : null,
-            item.program     ? `Program: ${item.program}`         : null,
-            item.award       ? `Award: ${item.award}`             : null
-        ].filter(Boolean);
-        return [
-            { text: period, bold: true, margin:[0,2,0,2] },
-            { stack: [ { text: item.title, bold: true }, ...details.map(l=>({ text: l })) ], margin:[0,2,0,2] }
-        ];
-    });
+  // --- experience rows ---
+  const expRows = expData.map(e => [
+    { text: e.period, bold: true, margin: [0, 2, 0, 2] },
+    { text: `${e.position}, ${e.institution}` + (e.duration ? ` (${e.duration})` : ''), italics: true }
+  ]);
 
-    // 9) Grant rows
-    const grantRows = grantsData.grants.map(item => {
-        let period = item.date || '';
-        if (item.durationMonths) period += ` (${item.durationMonths} mo)`;
-        const details = [
-            `Role: ${item.role}`,
-            item.issuer   ? `Issuer: ${item.issuer}`    : null,
-            item.subtitle ? item.subtitle               : null,
-            `Funding: ${item.funding}`
-        ].filter(Boolean);
-        return [
-            { text: period, bold:true, margin:[0,2,0,2] },
-            { stack: [ { text: item.title, bold:true }, ...details.map(l=>({ text: l })) ], margin:[0,2,0,2] }
-        ];
-    });
+  // --- teaching rows ---
+  const teachRows = teachingData.teaching.map(item => {
+    const period = item.period || item.date || item.academicYear || '';
+    const detailStack = [
+      { text: item.type, bold: true },
+      item.course   ? { text: 'Course: ' + item.course } : null,
+      item.teaching ? { text: 'Teaching: ' + item.teaching } : null,
+      item.hours    ? { text: 'Hours: ' + item.hours } : null
+    ].filter(Boolean);
+    return [
+      { text: period, bold: true, margin: [0, 2, 0, 2] },
+      { stack: detailStack, margin: [0, 2, 0, 2] }
+    ];
+  });
 
-    // 10) Build PDF document definition (dd)
-    const dd = {
-        pageSize:'A4',
-        pageMargins:[40,60,40,60],
-        content:[
-            { text:[{ text:'Online Version', link:siteURL, color:accent, decoration:'underline' }], margin:[0,0,0,12] },
-            {
-                table:{ widths:[80,'*'], body:[
-                        [
-                            { image:profileImg, width:80, rowSpan:2 },
-                            { text:'Mazziotti Raffaele M.', bold:true, color:'#fff', fillColor:accent, margin:[6,6], fontSize:18 }
-                        ],
-                        [
-                            {},
-                            { table:{ widths:['auto','*'], body:contactRows }, layout:'noBorders' }
-                        ]
-                    ]},
-                layout:'noBorders',
-                margin:[0,0,0,12]
-            },
-            createSectionHeader('About',accent),
-            { text: aboutInline, margin:[0,0,0,12] },
-            createSectionHeader('Education',accent),
-            {
-                table:{ widths:[100,'*'], body: eduData.map(e=>[{ text:e.date, bold:true }, e.description]) },
-                layout:{ fillColor:(i)=>i%2?null:'#f7f7f7', hLineWidth:()=>0, vLineWidth:()=>0 },
-                margin:[0,0,0,12]
-            },
-            createSectionHeader('Appointments & Experience',accent),
-            { table:{ widths:[120,'*'], body:expRows }, layout:{ fillColor:(i)=>i%2?null:'#f7f7f7', hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] },
-            createSectionHeader('Thesis Supervision',accent),
-            ...Object.entries(thesesData).flatMap(([deg,list]) => {
-                const header = [{ text:deg.charAt(0).toUpperCase()+deg.slice(1), colSpan:2, bold:true, fillColor:'#f7f7f7', margin:[0,6,0,4] }, {}];
-                const rows = list.map(t=>([{ text:t.academicYear, bold:true }, { text:`${t.student} — ${t.thesisTitle}`, italics:true }]));
-                return [{ table:{ widths:[100,'*'], body:[header, ...rows] }, layout:{ fillColor:(r)=>r>0&&r%2===0?'#f7f7f7':null, hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] }];
-            }),
-            createSectionHeader('Symposia & Invited Talks',accent),
-            { table:{ widths:[100,'*'], body:[
-                        [{ text:'Organized', colSpan:2, bold:true, fillColor:'#f7f7f7' }, {}],
-                        ...sympData.organized.map(o=>[{ text:o.date, bold:true }, { text:`${o.title} (${o.event})` }]),
-                        [{ text:'Invited', colSpan:2, bold:true, fillColor:'#f7f7f7' }, {}],
-                        ...sympData.invited.map(i=>[{ text:i.date, bold:true }, { text:`${i.title} (${i.event})` }])
-                    ]}, layout:{ fillColor:(i)=>i%2?null:'#f7f7f7', hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] },
-            createSectionHeader('Teaching & Seminars',accent),
-            { table:{ widths:[120,'*'], body:teachRows }, layout:{ fillColor:(i)=>i%2?null:'#f7f7f7', hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] },
-            createSectionHeader('Posters',accent),
-            { table:{ widths:[100,'*'], body: postersData.posters.map(p=>[{ text:p.date, bold:true }, { text:`${p.title} — ${p.authors.join(', ')} (${p.event})` }]) }, layout:{ fillColor:(i)=>i%2?'#f7f7f7':null, hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] },
-            createSectionHeader('Patents',accent),
-            { table:{ widths:[100,'*'], body: patentsData.patents.map(p=>[{ text:String(p.year), bold:true }, { text:`${p.title} [Ref: ${p.refNumber}; Holder: ${p.holder}]` }]) }, layout:{ fillColor:(i)=>i%2?'#f7f7f7':null, hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] },
-            createSectionHeader('Awards & Honors',accent),
-            { table:{ widths:[120,'*'], body:awardRows }, layout:{ fillColor:(i)=>i%2?null:'#f7f7f7', hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] },
-            createSectionHeader('Grants',accent),
-            { table:{ widths:[120,'*'], body:grantRows }, layout:{ fillColor:(i)=>i%2?null:'#f7f7f7', hLineWidth:()=>0, vLineWidth:()=>0 }, margin:[0,0,0,12] },
-            createSectionHeader('Technical Skills',accent),
-            ...Object.entries(skillsData).flatMap(([cat,items])=>[
-                { text:cat, bold:true, margin:[0,6,0,4] },
-                ...items.map(i=>({ text:`• ${i}`, margin:[10,0,0,4] }))
-            ]),
-            createSectionHeader('Author Metrics',accent),
-            { // stats table
-              table: {
-                widths: ['*', '*', '*', '*'],
-                body: [
-                  [
-                    { text: 'Metric', bold: true, fillColor: '#eeeeee' },
-                    { text: 'Google Scholar', bold: true, fillColor: '#eeeeee' },
-                    { text: 'Scopus', bold: true, fillColor: '#eeeeee' }
-                  ],
-                  [
-                    '# Articles',
-                    '–',
-                    scopus.document_count?.toString() || '–'
-                  ],
-                  [
-                    'Citations',
-                    scholar['citations'] || '–',
-                    scopus.citation_count?.toString() || '–'
-                  ],
-                  [
-                    'h-index',
-                    scholar['hindex'] || '–',
-                    scopus.h_index?.toString() || '–'
-                  ]
-                ]
-              }, // stats table
-              layout: {
-                fillColor: (i) => i === 0 ? '#eeeeee' : null,
-                hLineWidth: () => 0.5,
-                vLineWidth: () => 0.5,
-                hLineColor: () => accent,
-                vLineColor: () => accent
-              },
-              margin: [0, 0, 0, 12]
-            },
-            createSectionHeader('Publications',accent),
-            ...pubCards,
-            {
-              text: 'Dichiaro, ai sensi degli articoli 46 e 47 del D.P.R. 28 dicembre 2000, n. 445, che quanto riportato nel presente curriculum vitae corrisponde a verità.\n' +
-                  'Autorizzo il trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) e del D.lgs. 196/2003 e successive modifiche.',
-              italics: true,
-              fontSize: 9,
-              margin: [0, 30, 0, 4],
-              alignment: 'left',
-              color: '#999'
-            }
-        ],
-        defaultStyle:{ fontSize:11 }
-    };
+  // --- awards rows ---
+  const awardRows = awardsData.awards.map(item => {
+    const period = item.date || item.year || item.academicYear || '';
+    const details = [
+      item.institution ? `Institution: ${item.institution}` : null,
+      item.issuer      ? `Issuer: ${item.issuer}`           : null,
+      item.event       ? `Event: ${item.event}`             : null,
+      item.organizer   ? `Organizer: ${item.organizer}`     : null,
+      item.program     ? `Program: ${item.program}`         : null,
+      item.award       ? `Award: ${item.award}`             : null
+    ].filter(Boolean);
+    return [
+      { text: period, bold: true, margin: [0, 2, 0, 2] },
+      { stack: [{ text: item.title, bold: true }, ...details.map(l => ({ text: l }))], margin: [0, 2, 0, 2] }
+    ];
+  });
 
-    // 11) Generate and download
-    pdfMake.createPdf(dd).download('CV_Mazziotti.pdf');
+  // --- grants rows ---
+  const grantRows = grantsData.grants.map(item => {
+    let period = item.date || '';
+    if (item.durationMonths) period += ` (${item.durationMonths} mo)`;
+    const details = [
+      `Role: ${item.role}`,
+      item.issuer   ? `Issuer: ${item.issuer}` : null,
+      item.subtitle ? item.subtitle            : null,
+      `Funding: ${item.funding}`
+    ].filter(Boolean);
+    return [
+      { text: period, bold: true, margin: [0, 2, 0, 2] },
+      { stack: [{ text: item.title, bold: true }, ...details.map(l => ({ text: l }))], margin: [0, 2, 0, 2] }
+    ];
+  });
+
+  // --- assemble PDF document ---
+  const dd = {
+    pageSize: 'A4',
+    pageMargins: [40, 60, 40, 60],
+    content: [
+      { text: [{ text: 'Online Version', link: siteURL, color: accent, decoration: 'underline' }], margin: [0, 0, 0, 12] },
+      {
+        table: {
+          widths: [80, '*'],
+          body: [
+            [
+              { image: profileImg, width: 80, rowSpan: 2 },
+              { text: 'Mazziotti Raffaele M.', bold: true, color: '#fff', fillColor: accent, margin: [6, 6], fontSize: 18 }
+            ],
+            [
+              {},
+              { table: { widths: ['auto', '*'], body: contactRows }, layout: 'noBorders' }
+            ]
+          ]
+        },
+        layout: 'noBorders',
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('About', accent),
+      { text: aboutInline, margin: [0, 0, 0, 12] },
+
+      createSectionHeader('Citations and Articles per Year', accent),
+      createInlineChart(years, artCounts, citAligned, accent),
+
+      createSectionHeader('Author Metrics', accent),
+      {
+        table: {
+          widths: ['*', '*', '*', '*'],
+          body: [
+            [
+              { text: 'Metric', bold: true, fillColor: '#eeeeee' },
+              { text: 'Google Scholar', bold: true, fillColor: '#eeeeee' },
+              { text: 'Scopus', bold: true, fillColor: '#eeeeee' }
+            ],
+            ['# Articles', '–', scopus.document_count?.toString() || '–'],
+            ['Citations', scholar['citations'] || '–', scopus.citation_count?.toString() || '–'],
+            ['h-index', scholar['hindex'] || '–', scopus.h_index?.toString() || '–']
+          ]
+        },
+        layout: {
+          fillColor: (i) => i === 0 ? '#eeeeee' : null,
+          hLineWidth: () => 0.5,
+          vLineWidth: () => 0.5,
+          hLineColor: () => accent,
+          vLineColor: () => accent
+        },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Education', accent),
+      {
+        table: { widths: [100, '*'], body: eduData.map(e => [{ text: e.date, bold: true }, e.description]) },
+        layout: { fillColor: (i) => i % 2 ? null : '#f7f7f7', hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Appointments & Experience', accent),
+      {
+        table: { widths: [120, '*'], body: expRows },
+        layout: { fillColor: (i) => i % 2 ? null : '#f7f7f7', hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Thesis Supervision', accent),
+      ...Object.entries(thesesData).flatMap(([deg, list]) => {
+        const header = [{ text: deg.charAt(0).toUpperCase() + deg.slice(1), colSpan: 2, bold: true, fillColor: '#f7f7f7', margin: [0, 6, 0, 4] }, {}];
+        const rows = list.map(t => ([{ text: t.academicYear, bold: true }, { text: `${t.student} — ${t.thesisTitle}`, italics: true }]));
+        return [{
+          table: { widths: [100, '*'], body: [header, ...rows] },
+          layout: { fillColor: (r) => r > 0 && r % 2 === 0 ? '#f7f7f7' : null, hLineWidth: () => 0, vLineWidth: () => 0 },
+          margin: [0, 0, 0, 12]
+        }];
+      }),
+
+      createSectionHeader('Symposia & Invited Talks', accent),
+      {
+        table: {
+          widths: [100, '*'],
+          body: [
+            [{ text: 'Organized', colSpan: 2, bold: true, fillColor: '#f7f7f7' }, {}],
+            ...sympData.organized.map(o => [{ text: o.date, bold: true }, { text: `${o.title} (${o.event})` }]),
+            [{ text: 'Invited', colSpan: 2, bold: true, fillColor: '#f7f7f7' }, {}],
+            ...sympData.invited.map(i => [{ text: i.date, bold: true }, { text: `${i.title} (${i.event})` }])
+          ]
+        },
+        layout: { fillColor: (i) => i % 2 ? null : '#f7f7f7', hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Teaching & Seminars', accent),
+      {
+        table: { widths: [120, '*'], body: teachRows },
+        layout: { fillColor: (i) => i % 2 ? null : '#f7f7f7', hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Posters', accent),
+      {
+        table: {
+          widths: [100, '*'],
+          body: postersData.posters.map(p => [
+            { text: p.date, bold: true },
+            { text: `${p.title} — ${p.authors.join(', ')} (${p.event})` }
+          ])
+        },
+        layout: { fillColor: (i) => i % 2 ? '#f7f7f7' : null, hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Patents', accent),
+      {
+        table: {
+          widths: [100, '*'],
+          body: patentsData.patents.map(p => [
+            { text: String(p.year), bold: true },
+            { text: `${p.title} [Ref: ${p.refNumber}; Holder: ${p.holder}]` }
+          ])
+        },
+        layout: { fillColor: (i) => i % 2 ? '#f7f7f7' : null, hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Awards & Honors', accent),
+      {
+        table: { widths: [120, '*'], body: awardRows },
+        layout: { fillColor: (i) => i % 2 ? null : '#f7f7f7', hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Grants', accent),
+      {
+        table: { widths: [120, '*'], body: grantRows },
+        layout: { fillColor: (i) => i % 2 ? null : '#f7f7f7', hLineWidth: () => 0, vLineWidth: () => 0 },
+        margin: [0, 0, 0, 12]
+      },
+
+      createSectionHeader('Technical Skills', accent),
+      ...Object.entries(skillsData).flatMap(([cat, items]) => [
+        { text: cat, bold: true, margin: [0, 6, 0, 4] },
+        ...items.map(i => ({ text: `• ${i}`, margin: [10, 0, 0, 4] }))
+      ]),
+
+      createSectionHeader('Publications', accent),
+      ...pubCards,
+
+      {
+        text:
+          'Dichiaro, ai sensi degli articoli 46 e 47 del D.P.R. 28 dicembre 2000, n. 445, che quanto riportato nel presente curriculum vitae corrisponde a verità.\n' +
+          'Autorizzo il trattamento dei miei dati personali ai sensi del Regolamento UE 2016/679 (GDPR) e del D.lgs. 196/2003 e successive modifiche.',
+        italics: true,
+        fontSize: 9,
+        margin: [0, 30, 0, 4],
+        alignment: 'left',
+        color: '#999'
+      }
+    ],
+    defaultStyle: { fontSize: 11 }
+  };
+
+  pdfMake.createPdf(dd).download('CV_Mazziotti.pdf');
 }
 
 function initDOCXDownloadTab() {

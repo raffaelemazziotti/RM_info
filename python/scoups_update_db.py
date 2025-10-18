@@ -37,10 +37,10 @@ print('Update authors...')
 authors = [str(aid) for aid in np.unique([ids['id'] if isinstance(ids, dict) else ids for article in articles for ids in article['authors_id'] if (ids and (not isinstance(ids, dict) or ids.get('id') is not None))])]
 
 for author in authors:
-    if not (db.record_exists('authors', author)):
-        author_raw = scopus.get_author(author)
-        db.insert_author(author_raw)
-        time.sleep(0.5)
+    #if not (db.record_exists('authors', author)):
+    author_raw = scopus.get_author(author)
+    db.insert_or_update_author(author_raw)
+    time.sleep(0.5)
 
 # Update journals
 print('Update journals...')
