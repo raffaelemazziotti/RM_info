@@ -120,6 +120,7 @@ async function loadPublications() {
     });
     const buf = await fetch('data/scopus.db').then(r => r.arrayBuffer());
     const db  = new SQL.Database(new Uint8Array(buf));
+    const roles = await fetch('sections/author_roles.json').then(r => r.ok ? r.json() : ({}));
 
     const authors = Object.fromEntries(
         db.exec('SELECT id,auth FROM authors')[0].values
@@ -143,16 +144,14 @@ async function loadPublications() {
             const n = authors[id] || '';
             return n.toLowerCase().startsWith(surname) ? `<u>${n}</u>` : n;
         }).join(', ');
-
-        /* --- robust numeric parsing --- */
         const year  = parseInt(String(yearRaw).slice(0, 4), 10) || 0;   // 2025
         const cites = (() => {
             const cleaned = String(citesRaw || '')          // null → ''
                 .replace(/[^\d]/g, '');        // "1,234 " → "1234"
             return cleaned ? parseInt(cleaned, 10) : 0;     // always a real number
         })();
-
-        return { title, names, journal, year, cites, doi };
+        const rolesArr = roles[doi] || [];
+        return { title, names, journal, year, cites, doi, roles: rolesArr };
     });
 
     attachPubControls();
@@ -202,6 +201,7 @@ function renderPubList() {
     /* ---------- render ---------- */
     const wrap = document.getElementById('pub-list');
     wrap.innerHTML = '';
+
     list.forEach(p=>{
         const div = document.createElement('div');
         div.className = 'pub-item';
@@ -212,6 +212,7 @@ function renderPubList() {
       <span class="pub-journal">${hl(p.journal)}</span>
       ${p.cites ? `<span class="pub-cites"> · ${p.cites} citations</span>` : ''}
       ${p.doi   ? ` <a href="https://doi.org/${p.doi}" class="doi-btn" target="_blank">${hl('doi')}</a>` : ''}
+      ${p.roles?.length ? `<span class="pub-role">${p.roles.join(', ')} author</span>` : ''}
     `;
         wrap.appendChild(div);
     });
@@ -1318,6 +1319,9 @@ async function generatePDF() {
                             { text: pub.title, bold: true, margin: [0, 0, 0, 4] },
                             { text: underlineMe(pub.names), margin: [0, 0, 0, 4] },
                             { text: pub.journal, italics: true, margin: [0, 0, 0, 4] },
+                            ...(pub.roles && pub.roles.length
+                                ? [{ text: `Role: ${pub.roles.join(', ')} author`, margin: [0, 0, 0, 4], color: accent }]
+                                : []),
                             { text: `Citations: ${pub.cites ?? '–'}`, margin: [0, 0, 0, 4], color: '#999' },
                             ...(pub.doi ? [{
                                 text: `DOI: ${pub.doi}`,
@@ -1760,6 +1764,9 @@ async function generateDOCX() {
                 const dateRun    = new TextRun({ text: String(pub.year), bold: true });
                 const titleRun   = new TextRun({ text: pub.title, italics: true });
                 const journalRun = new TextRun({ text: pub.journal });
+                const roleRun = (pub.roles && pub.roles.length)
+                      ? new TextRun({ text: ` [Role: ${pub.roles.join(', ')} author]`, color: '808080' })
+                      : null;
                 const doiRun     = pub.doi
                     ? new TextRun({ text: pub.doi, link: `https://doi.org/${pub.doi}`, style: 'Hyperlink' })
                     : null;
@@ -1769,6 +1776,7 @@ async function generateDOCX() {
                     new TextRun({ text: ' (' }), dateRun, new TextRun({ text: ') ' }),
                     titleRun, new TextRun({ text: ', ' }), journalRun
                 ];
+                if (roleRun) children.push(roleRun);
                 if (doiRun) {
                     children.push(new TextRun({ text: ', DOI: ' }), doiRun);
                 }

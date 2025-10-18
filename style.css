@@ -197,6 +197,16 @@ a{color:var(--accent);}
     color:var(--accent);
 }
 
+.pub-role {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.8rem;
+  color: var(--accent);
+  margin-left: 0.5rem;
+}
+
 .hl{
     background:var(--accent);
     color:#000;
