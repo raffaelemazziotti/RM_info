@@ -63,6 +63,14 @@
       "thesisTitle": "Contagio emotivo: analisi pupillometrica e di attivazione neurale",
       "course": "Psicologia Clinica e della Salute e Neuropsicologia",
       "class": "LM-51"
+    },
+    {
+      "academicYear": "2024/2025",
+      "student": "Rosignoli Vittorio",
+      "thesisType": "Tesi Sperimentale",
+      "thesisTitle": "Studio del fenotipo comportamentale e valutazione dei biomarcatori fisiologici nel modello murino della sindrome di Angelman.",
+      "course": "Psicologia Clinica e della Salute e Neuropsicologia",
+      "class": "LM-51"
     }
   ],
   "bachelor": [
@@ -143,6 +151,30 @@
       "student": "Gervastri Giulia",
       "thesisType": "Ricerca bibliografica",
       "thesisTitle": "Circuiti cerebrali coinvolti nel novelty seeking behavior.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2024/2025",
+      "student": "Vigiani Sofia",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Il consolidamento dei ricordi tra specificità ippocampale e generalizzazione corticale: basi biologiche e implicazioni cliniche.",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2024/2025",
+      "student": "Marinari Bianca",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Il ruolo del circuito collicolo superiore e area tegmentale ventrale nei deficit di orientamento sociale nel Disturbo dello Spettro Autistico",
+      "course": "Laurea in Scienze e Tecniche Psicologiche",
+      "class": "L-24"
+    },
+    {
+      "academicYear": "2024/2025",
+      "student": "Bernini Alessandro",
+      "thesisType": "Ricerca bibliografica",
+      "thesisTitle": "Computational Neuroethology: quantificare il comportamento per capire il cervello",
       "course": "Laurea in Scienze e Tecniche Psicologiche",
       "class": "L-24"
     }
