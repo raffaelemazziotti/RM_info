@@ -3,6 +3,7 @@
 /* TODO last update time is not available online */
 // TODO the affiliations in the tagline are binded into the file. I need to create a json to make them dynamic
 // TODO add to the pdf file the stats (simplified), web resources, databases and other
+// TODO versione italiano e inglese o solo inglese?
 
 
 document.addEventListener('DOMContentLoaded', async () => {
