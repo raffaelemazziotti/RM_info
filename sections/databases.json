@@ -1,6 +1,14 @@
 {
   "databases": [
     {
+      "date": "2025-11-20",
+      "title": "Direct Emotional Response Videos for Vicarious Emotional Processing in Mice.",
+      "type": "Repository di dati di comportamento su topo.",
+      "website": "https://zenodo.org/records/17661945",
+      "doi": "10.5281/zenodo.17661944",
+      "description": "Videos of mice displaying Direct Emotional Response used to elicit visual Vicarious Emotional Response."
+    },
+    {
       "date": "2022-12-20",
       "title": "A brain-wide, annotated dataset of WFA-positive perineuronal nets and parvalbumin neurons in the adult mouse brain",
       "type": "Repository di dati di microscopia a fluorescenza su tutto il cervello",

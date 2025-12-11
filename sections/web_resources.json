@@ -2,6 +2,14 @@
   "Website": [
     {
       "year": 2025,
+      "title": "Direct Emotional Response (DER) Videos",
+      "website": "https://raffaelemazziotti.github.io/DER_videos/",
+      "sourceCode": "https://github.com/raffaelemazziotti/DER_videos",
+      "description": "Documentation for DER videos dataset.",
+      "src_img": "https://raw.githubusercontent.com/raffaelemazziotti/DER_videos/refs/heads/main/favicon.png"
+    },
+    {
+      "year": 2025,
       "title": "NeuroTOC [Table of Contents]",
       "website": "https://raffaelemazziotti.github.io/neuroTOC/",
       "sourceCode": "https://github.com/raffaelemazziotti/neuroTOC",
