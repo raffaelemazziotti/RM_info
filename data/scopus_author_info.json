@@ -1,16 +1,16 @@
 {
   "id": "57110486800",
   "surname": "Mazziotti",
-  "name": "Raffaele",
+  "name": "Raffaele M.",
   "auth": "Mazziotti R.",
   "affid": "60021859",
   "area": [
     "Genetics (clinical)",
     "Psychiatry and Mental Health",
     "Cognitive Neuroscience",
-    "Multidisciplinary",
     "Artificial Intelligence",
     "Neurology (clinical)",
+    "Multidisciplinary",
     "Neuropsychology and Physiological Psychology",
     "Health Informatics",
     "Physics and Astronomy (all)",
@@ -44,12 +44,12 @@
     "Radiological and Ultrasound Technology",
     "Computer Vision and Pattern Recognition"
   ],
-  "citation_count": "717",
-  "document_count": "39",
+  "citation_count": "721",
+  "document_count": "40",
   "h_index": "17",
-  "coauthor_n": "170",
+  "coauthor_n": "175",
   "publication_range": [
     "2015",
-    "2025"
+    "2026"
   ]
 }
