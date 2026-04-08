@@ -1,32 +1,30 @@
 {
   "id": "57110486800",
   "surname": "Mazziotti",
-  "name": "Raffaele",
+  "name": "Raffaele M.",
   "auth": "Mazziotti R.",
   "affid": "60021859",
   "area": [
+    "Multidisciplinary",
     "Genetics (clinical)",
     "Psychiatry and Mental Health",
     "Cognitive Neuroscience",
-    "Multidisciplinary",
     "Artificial Intelligence",
     "Neurology (clinical)",
     "Neuropsychology and Physiological Psychology",
     "Health Informatics",
-    "Physics and Astronomy (all)",
     "Molecular Biology",
     "Computer Graphics and Computer-Aided Design",
     "Neuroscience (miscellaneous)",
     "Instrumentation",
-    "Biochemistry, Genetics and Molecular Biology (all)",
     "Neurology",
     "Cell Biology",
-    "Chemistry (all)",
+    "Biochemistry, Genetics and Molecular Biology (all)",
     "Radiology, Nuclear Medicine and Imaging",
     "Pharmacology",
     "Biomedical Engineering",
-    "Biological Psychiatry",
     "Ophthalmology",
+    "Biological Psychiatry",
     "Medicine (all)",
     "Cellular and Molecular Neuroscience",
     "Biochemistry",
@@ -44,12 +42,12 @@
     "Radiological and Ultrasound Technology",
     "Computer Vision and Pattern Recognition"
   ],
-  "citation_count": "713",
-  "document_count": "39",
+  "citation_count": "738",
+  "document_count": "40",
   "h_index": "17",
-  "coauthor_n": "170",
+  "coauthor_n": "175",
   "publication_range": [
     "2015",
-    "2025"
+    "2026"
   ]
 }
