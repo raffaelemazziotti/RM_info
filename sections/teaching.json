@@ -2,8 +2,35 @@
   "teaching": [
     {
       "type": "Assistant Professor (RTD-A)",
+      "academicYear": "2025/2026",
+      "date": "2025/2025",
+      "school": "University of Florence – Degree Class in Economics and Business Management",
+      "course": "Sustainable Business for Societal Challenges (L-18)",
+      "teaching": "Neuroscience of Social-Cognitive Enhancement for Well-Being and Neural Bases of Decision Processes",
+      "hours": 32
+    },
+    {
+      "type": "Assistant Professor (RTD-A)",
+      "academicYear": "2025/2026",
+      "date": "2025/2025",
+      "school": "University of Florence – School of Psychology",
+      "course": "Clinical and Health Psychology and Neuropsychology (LM-51)",
+      "teaching": "Methods of Psychophysiology and Neuroimaging in Clinical Practice and Cognitive Neuroscience",
+      "hours": 21
+    },
+    {
+      "type": "Assistant Professor (RTD-A)",
+      "academicYear": "2025/2025",
+      "date": "2025/2025",
+      "school": "University of Florence – School of Psychology",
+      "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (L-24)",
+      "teaching": "Psychobiology with Elements of Developmental Cognitive Neuroscience",
+      "hours": 29
+    },
+    {
+      "type": "Assistant Professor (RTD-A)",
       "academicYear": "2024/2025",
-      "date": "12/03/2025",
+      "date": "2024/2025",
       "school": "University of Florence – Degree Class in Economics and Business Management",
       "course": "Sustainable Business for Societal Challenges (L-18)",
       "teaching": "Neuroscience of Social-Cognitive Enhancement for Well-Being and Neural Bases of Decision Processes",
@@ -12,7 +39,7 @@
     {
       "type": "Assistant Professor (RTD-A)",
       "academicYear": "2024/2025",
-      "date": "03/10/2024",
+      "date": "2024/2025",
       "school": "University of Florence – School of Psychology",
       "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (L-24)",
       "teaching": "Psychobiology with Elements of Developmental Cognitive Neuroscience",
@@ -21,7 +48,7 @@
     {
       "type": "Assistant Professor (RTD-A)",
       "academicYear": "2023/2024",
-      "date": "05/10/2023",
+      "date": "2023/2024",
       "school": "University of Florence – School of Psychology",
       "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
       "teaching": "Psychobiology with Elements of Developmental Cognitive Neuroscience",
@@ -30,7 +57,7 @@
      {
       "type": "Adjunct Professor",
       "academicYear": "2022/2023",
-      "date": "16/11/2022",
+      "date": "2022/2023",
       "school": "University of Florence – School of Psychology",
       "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
       "teaching": "Psychobiology of Resilience and Vulnerability",
@@ -39,7 +66,7 @@
     {
       "type": "Adjunct Professor",
       "academicYear": "2022/2023",
-      "date": "16/11/2022",
+      "date":"2022/2023",
       "school": "University of Florence – School of Psychology",
       "course": "BSc in Psychological Science and Techniques (L-24)",
       "teaching": "Psychobiology & Developmental Cognitive Neuroscience",
@@ -48,7 +75,7 @@
     {
       "type": "Adjunct Professor",
       "academicYear": "2021/2022",
-      "date": "16/11/2021",
+      "date": "2021/2022",
       "school": "University of Florence – School of Psychology",
       "course": "MSc in Clinical Psychology & Health Psychology and Neuropsychology (LM-51)",
       "teaching": "Psychobiology of Resilience and Vulnerability",
