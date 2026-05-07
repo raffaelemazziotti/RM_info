@@ -1,8 +1,76 @@
 {
   "posters": [
     {
+      "event": "FENS Forum 2026",
+      "date": "2026-07-06",
+      "title": "Pupillometry and brain-wide c-Fos mapping reveal multimodal mirror networks underlying emotional contagion in mice",
+      "authors": [
+        "M. Caldarelli",
+        "S. Zucca",
+        "A. Viglione",
+        "A. Stella",
+        "R. Nisar",
+        "G. Sagona",
+        "F. Carrara",
+        "S. Bovetti",
+        "R. Mazziotti",
+        "T. Pizzorusso"
+      ]
+    },
+    {
+      "event": "SINS Young Meeting",
+      "date": "2026-06-22",
+      "title": "Pupillometry and brain-wide c-Fos mapping reveal multimodal networks underlying emotional contagion in mice",
+      "authors": [
+        "M. Caldarelli",
+        "S. Zucca",
+        "A. Viglione",
+        "A. Stella",
+        "R. Nisar",
+        "G. Sagona",
+        "F. Carrara",
+        "S. Bovetti",
+        "R. Mazziotti",
+        "T. Pizzorusso"
+      ]
+    },
+    {
+      "event": "Gut-brain and beyond: Interorgan Communication in Health and Disease. Translational Insights from Preclinical Models to Clinical Applications",
+      "date": "2026-05-27",
+      "title": "Pupillometry and brain-wide c-Fos mapping reveal multimodal mirror networks underlying emotional contagion in mice",
+      "authors": [
+        "M. Caldarelli",
+        "S. Zucca",
+        "A. Viglione",
+        "A. Stella",
+        "R. Nisar",
+        "G. Sagona",
+        "F. Carrara",
+        "S. Bovetti",
+        "R. Mazziotti",
+        "T. Pizzorusso"
+      ]
+    },
+    {
+      "event": "SINS 2025 – Congresso Nazionale della Società Italiana di Neuroscienze",
+      "date": "2025-09-10",
+      "title": "Pupillometry and c-Fos Indicate Multimodal Mirror Mechanisms in Emotional Contagion",
+      "authors": [
+        "M. Caldarelli",
+        "S. Zucca",
+        "A. Viglione",
+        "A. Stella",
+        "R. Nisar",
+        "G. Sagona",
+        "F. Carrara",
+        "S. Bovetti",
+        "R. Mazziotti",
+        "T. Pizzorusso"
+      ]
+    },
+    {
       "event": "12th Winter Seminar on \"Dementia and Neurodegenerative Disorders\"",
-      "date": "2025-02-5",
+      "date": "2025-02-05",
       "title": "Impaired prefrontal cortex–raphe circuit is associated with Alzheimer’s disease cognitive impairments in 3xTg mice: is it a breeding ground for tACS?",
       "authors": [
         "Marco Cambiaghi",
