@@ -1,12 +1,20 @@
 {
   "databases": [
     {
+      "date": "2026-16-01",
+      "title": "Human Eye-Region and Pupil Segmentation Dataset for MEYELens.",
+      "type": "Human and Mouse Eyes for Eye and Pupil Semantic Segmentation.",
+      "website": "https://zenodo.org/records/20492528",
+      "doi": "10.5281/zenodo.20492528",
+      "description": "Videos of mice displaying Direct Emotional Response used to elicit visual Vicarious Emotional Response."
+    },
+    {
       "date": "2025-11-20",
       "title": "Direct Emotional Response Videos for Vicarious Emotional Processing in Mice.",
       "type": "Repository di dati di comportamento su topo.",
       "website": "https://zenodo.org/records/17661945",
       "doi": "10.5281/zenodo.17661944",
-      "description": "Videos of mice displaying Direct Emotional Response used to elicit visual Vicarious Emotional Response."
+      "description": "This dataset contains human eye images with pixel-level segmentation masks for the pupil and eye-region. The dataset was prepared as part of the MEYELens project."
     },
     {
       "date": "2022-12-20",
