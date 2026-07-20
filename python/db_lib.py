@@ -489,7 +489,7 @@ class ScopusDB:
             existing_article = self.get_article(article['id'])
 
             # Prepare update values, keeping existing ones if not provided
-            affil = article.get('affiliations', existing_article["affiliations_id"])
+            affil = article.get('affiliation', existing_article["affiliations_id"])
             if affil==[None]:
                 affil = ''
             else:
@@ -760,6 +760,5 @@ class ScopusDB:
         query = "DELETE FROM articles WHERE id = ?"
         self.execute_query(query, (article_id,))
         return True
-
 
 

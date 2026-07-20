@@ -22,6 +22,12 @@ db.connect()
 
 # Download all the articles of the author
 articles =  scopus.get_all_articles(me)
+affiliations = sorted({
+    str(affiliation_id)
+    for article in articles
+    for affiliation_id in article.get('affiliation', [])
+    if affiliation_id is not None
+})
 
 # Update article database
 print('Update articles...')
@@ -73,12 +79,11 @@ for i,jid in enumerate(journals):
 
 # Update affiliations
 print('Update affiliations...')
-affiliations = [str(aid) for aid in np.unique([ids['id'] if type(ids)==dict else ids  for article in articles for ids in article['affiliations']])]
-
 for affiliation in affiliations:
-    if affiliation and not (db.record_exists('affiliations', affiliation)):
+    if not (db.record_exists('affiliations', affiliation)):
         affiliation_raw = scopus.get_affiliation(affiliation)
-        db.insert_affiliation(affiliation_raw)
+        if affiliation_raw:
+            db.insert_affiliation(affiliation_raw)
 
 # refresh the home-pubs file
 
@@ -123,6 +128,5 @@ with out_path.open('w', encoding='utf-8') as f:
 now = datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 out = Path('data/last_updated.txt')
 out.write_text(now, encoding='utf-8')
-
 
 
