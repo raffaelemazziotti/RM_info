@@ -1,7 +1,7 @@
 {
   "id": "57110486800",
   "surname": "Mazziotti",
-  "name": "Raffaele M.",
+  "name": "Raffaele Mario",
   "auth": "Mazziotti R.",
   "affid": "60021859",
   "area": [
@@ -23,9 +23,9 @@
     "Radiology, Nuclear Medicine and Imaging",
     "Pharmacology",
     "Biomedical Engineering",
+    "Medicine (all)",
     "Biological Psychiatry",
     "Ophthalmology",
-    "Medicine (all)",
     "Biochemistry",
     "Developmental Neuroscience",
     "Electrical and Electronic Engineering",
@@ -42,7 +42,7 @@
     "Radiological and Ultrasound Technology",
     "Computer Vision and Pattern Recognition"
   ],
-  "citation_count": "821",
+  "citation_count": "825",
   "document_count": "41",
   "h_index": "17",
   "coauthor_n": "176",
